@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "id": "tputils",
+  "version": "${version}",
+
+  "name": "TP Utils",
+  "description": "Teleport utility mod, making it much easier to get around.",
+  "authors": [
+    "Sjouwer",
+    "Kyzeragon"
+  ],
+  "contact": {
+    "homepage": "https://www.curseforge.com/minecraft/mc-mods/tp-utils",
+    "sources": "https://gitlab.com/project_sandbox/tp-utils",
+    "issues": "https://gitlab.com/project_sandbox/tp-utils/issues"
+  },
+
+  "license": "CC0-1.0",
+  "icon": "assets/tputils/icon.png",
+
+  "environment": "client",
+  "entrypoints": {
+    "main": [
+      "tp.utils.TpUtils"
+    ],
+    "modmenu": [ "tp.utils.config.ModMenuApiImpl" ],
+    "cotton-client-commands": ["tp.utils.Commands"]
+},
+
+
+  "depends": {
+    "fabricloader": ">=0.4.0",
+    "fabric": "*",
+    "minecraft": "1.14.x",
+    "autoconfig1u": ">=1.2.6"
+  }
+}

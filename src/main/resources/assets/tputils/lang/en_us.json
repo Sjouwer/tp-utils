@@ -1,0 +1,16 @@
+{
+    "key.categories.tp_utils": "TP Utils",
+    "key.tp_utils.tp_through": "TP Through",
+    "key.tp_utils.tp_on_top": "TP on Top",
+    "key.tp_utils.tp_forward": "TP Forward",
+    "key.tp_utils.tp_back": "TP Back",
+    "text.autoconfig.tp_utils.title": "TP Utils Config",
+    "text.autoconfig.tp_utils.option.tpMethod": "TP Method",
+    "text.autoconfig.tp_utils.option.tpThroughRange": "TP Through Range",
+    "text.autoconfig.tp_utils.option.tpOnTopRange": "TP On Top Range",
+    "text.autoconfig.tp_utils.option.tpForwardRange": "TP Forward Range",
+    "text.autoconfig.tp_utils.option.tpMethod.@Tooltip": "TP command, for example /tp or /tppos",
+    "text.autoconfig.tp_utils.option.tpThroughRange.@Tooltip": "From how far should the mod be able to detect blocks to TP through",
+    "text.autoconfig.tp_utils.option.tpOnTopRange.@Tooltip": "From how far should the mod be able to detect blocks to TP onto",
+    "text.autoconfig.tp_utils.option.tpForwardRange.@Tooltip": "The amount of blocks you'll TP forward"
+}
