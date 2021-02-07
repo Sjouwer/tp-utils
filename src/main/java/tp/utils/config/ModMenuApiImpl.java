@@ -11,7 +11,7 @@ public class ModMenuApiImpl implements ModMenuApi {
 
     @Override
     public String getModId() {
-        return "compasslesstp";
+        return "tputils";
     }
 
     @Override
