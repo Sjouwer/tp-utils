@@ -24,7 +24,7 @@ Teleport a certain amount of blocks into the direction you’re looking, includi
 
 **Chunk TP**
 
-Usage: /tpu chunk <x> <z>
+Usage: /tpu chunk \<x> \<z>
 
 Teleport to the coordinates of the entered chunk.
 
@@ -40,7 +40,7 @@ Teleport back to your previous location. This only works when you used a telepor
 
 Default: /tp
 
-The tp method the mod should use to teleport you. Any method that uses <x> <y> <z> should work.
+The tp method the mod should use to teleport you. Any method that uses \<x> \<y> \<z> should work.
 For example /tp or /tppos.
 
 **TP Through Range**
