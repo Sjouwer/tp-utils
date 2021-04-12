@@ -67,9 +67,7 @@ How far should the mod try to teleport you forward
 This version already includes some of the dependencies that you’ll need to get most out of this mod.
 
 Included:
-- [Auto Config](https://github.com/shedaniel/AutoConfig) Updated API (Is needed to make the config work)
-- [Cloth Config API Fabric](https://github.com/shedaniel/cloth-config) (Required for Auto Config)
-- [Cotton Client Commands](https://github.com/CottonMC/ClientCommands) (Is needed to make any of the commands work)
+- [Cloth Config API Fabric](https://github.com/shedaniel/cloth-config) (Is required to make the config work)
  		
 Required:
 - [Fabric API](https://github.com/FabricMC/fabric)
@@ -83,9 +81,7 @@ This version doesn’t include any of dependencies and requires you to manually 
 
 Required:
 - [Fabric API](https://github.com/FabricMC/fabric)
-- [Auto Config Updated API](https://github.com/shedaniel/AutoConfig) (Is required to make the config work)
-- [Cloth Config API Fabric](https://github.com/shedaniel/cloth-config) (Required for Auto Config)
+- [Cloth Config API Fabric](https://github.com/shedaniel/cloth-config) (Is required to make the config work)
  		
 Optional:
-- [Cotton Client Commands](https://github.com/CottonMC/ClientCommands) (Is needed to make any of the commands work)
 - [Mod Menu](https://github.com/TerraformersMC/ModMenu) (This mod allows you to edit the configs in game)

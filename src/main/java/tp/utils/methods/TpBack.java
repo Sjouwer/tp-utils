@@ -1,7 +1,7 @@
 package tp.utils.methods;
 
+import me.shedaniel.autoconfig.AutoConfig;
 import tp.utils.config.ModConfig;
-import me.sargunvohra.mcmods.autoconfig1u.AutoConfig;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.BaseText;
 import net.minecraft.text.LiteralText;

@@ -1,8 +1,8 @@
 package tp.utils.methods;
 
+import me.shedaniel.autoconfig.AutoConfig;
 import tp.utils.config.ModConfig;
 import tp.utils.util.CollisionCheck;
-import me.sargunvohra.mcmods.autoconfig1u.AutoConfig;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.BaseText;
 import net.minecraft.text.LiteralText;
@@ -48,8 +48,11 @@ public class TpOnTop {
 
         if (doesWallExist)
         {
-            for (int j = 1; j < 257; j++) {
-                if (!CollisionCheck.canCollide(blockPos.add(0, j,0)) && !CollisionCheck.canCollide(new BlockPos(blockPos.add(0,j + 1,0)))) {
+            for (int j = 1; j < 385; j++) {
+                boolean isBottomBlockFree = !CollisionCheck.canCollide(blockPos.add(0, j,0));
+                boolean isTopBlockFree = !CollisionCheck.canCollide(new BlockPos(blockPos.add(0,j + 1,0)));
+
+                if (isBottomBlockFree && isTopBlockFree) {
                     config.setPreviousLocation(minecraft.player.getPos());
                     minecraft.player.sendChatMessage(config.tpMethod() + " "  + blockPos.getX() + " " + (blockPos.getY() + j) + " " + blockPos.getZ());
                     return;
@@ -65,7 +68,7 @@ public class TpOnTop {
     //If the ray cast hits a non solid block like grass, it'll redo the ray cast past the grass block.
     private void recastRay() {
         distance = minecraft.player.getPos().distanceTo(hit.getPos());
-        Vec3d rayStart = hit.getPos().add(vector);
+        Vec3d rayStart = hit.getPos().add(vector.multiply(0.05));
         Vec3d rayEnd = rayStart.add(vector.multiply(config.tpOnTopRange() - distance));
         hit = minecraft.world.raycast(new RaycastContext(rayStart, rayEnd, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, minecraft.player));
 

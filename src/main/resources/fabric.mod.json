@@ -15,7 +15,7 @@
     "issues": "https://gitlab.com/project_sandbox/mods/tp-utils/-/issues"
   },
 
-  "license": "CC0-1.0",
+  "license": "GNU General Public License v3.0",
   "icon": "assets/tputils/icon.png",
 
   "environment": "client",
@@ -23,14 +23,13 @@
     "main": [
       "tp.utils.TpUtils"
     ],
-    "modmenu": [ "tp.utils.config.ModMenuApiImpl" ],
-    "cotton-client-commands": ["tp.utils.Commands"]
+    "modmenu": [ "tp.utils.config.ModMenuApiImpl" ]
   },
 
   "depends": {
-    "fabricloader": ">=0.10.8",
-    "fabric": "*",
-    "minecraft": "1.16.x",
-    "autoconfig1u": ">=3.2.2"
+    "minecraft": "1.17.x",
+    "fabricloader": ">=0.11.2",
+    "fabric": ">=0.31.0",
+    "cloth-config2": ">=5.0.0"
   }
 }

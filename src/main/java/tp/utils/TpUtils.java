@@ -1,5 +1,8 @@
 package tp.utils;
 
+import me.shedaniel.autoconfig.AutoConfig;
+import me.shedaniel.autoconfig.serializer.JanksonConfigSerializer;
+import net.fabricmc.fabric.api.client.command.v1.ClientCommandManager;
 import org.lwjgl.glfw.GLFW;
 import tp.utils.methods.TpBack;
 import tp.utils.methods.TpForward;
@@ -8,11 +11,9 @@ import tp.utils.methods.TpThrough;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
-import net.minecraft.client.options.KeyBinding;
+import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
 
-import me.sargunvohra.mcmods.autoconfig1u.AutoConfig;
-import me.sargunvohra.mcmods.autoconfig1u.serializer.JanksonConfigSerializer;
 import tp.utils.config.ModConfig;
 
 public class TpUtils implements ModInitializer {
@@ -35,6 +36,9 @@ public class TpUtils implements ModInitializer {
         setKeyBindingTPOnTop();
         setKeyBindingTPForward();
         setKeyBindingTPBack();
+
+        Commands commands = new Commands();
+        commands.registerCommands(ClientCommandManager.DISPATCHER);
     }
 
     private void setKeyBindingTPThrough() {
