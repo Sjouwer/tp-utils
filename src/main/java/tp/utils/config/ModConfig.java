@@ -15,6 +15,8 @@ public class ModConfig implements ConfigData {
     private int tpOnTopRange = 256;
     @ConfigEntry.Gui.Tooltip
     private int tpForwardRange = 100;
+    @ConfigEntry.Gui.Tooltip
+    private boolean allowCrawling = false;
     @ConfigEntry.Gui.Excluded
     private Vec3d previousLocation;
 
@@ -33,6 +35,11 @@ public class ModConfig implements ConfigData {
     public int tpForwardRange() {
         return tpForwardRange;
     }
+
+    public boolean isCrawlingAllowed() {
+        return allowCrawling;
+    }
+
 
     public Vec3d getPreviousLocation() {
         return previousLocation;
