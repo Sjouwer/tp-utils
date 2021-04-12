@@ -29,8 +29,9 @@ public class TpForward {
         Vec3d blockHit = hit.getPos().subtract(vector.multiply(0.05));
         BlockPos blockPos = new BlockPos(blockHit);
 
+        boolean isLoaded = minecraft.world.getChunkManager().isChunkLoaded(blockPos.getX() / 16, blockPos.getZ() / 16);
 
-        if (minecraft.world.getChunkManager().isChunkLoaded(blockPos.getX() / 16, blockPos.getZ() / 16))
+        if (isLoaded)
         {
             config.setPreviousLocation(minecraft.player.getPos());
             minecraft.player.sendChatMessage(config.tpMethod() + " " + blockPos.getX() + " " + blockPos.getY() + " " + blockPos.getZ());
