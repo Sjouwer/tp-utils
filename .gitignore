@@ -24,6 +24,3 @@ bin/
 # fabric
 
 run/
-gradlew
-gradlew.bat
-settings.gradle
