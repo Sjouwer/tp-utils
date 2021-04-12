@@ -52,7 +52,7 @@ public class TpOnTop {
                 boolean isBottomBlockFree = !CollisionCheck.canCollide(blockPos.add(0, j,0));
                 boolean isTopBlockFree = !CollisionCheck.canCollide(new BlockPos(blockPos.add(0,j + 1,0)));
 
-                if (isBottomBlockFree && isTopBlockFree) {
+                if (isBottomBlockFree && ( config.isCrawlingAllowed() || isTopBlockFree )) {
                     config.setPreviousLocation(minecraft.player.getPos());
                     minecraft.player.sendChatMessage(config.tpMethod() + " "  + blockPos.getX() + " " + (blockPos.getY() + j) + " " + blockPos.getZ());
                     return;

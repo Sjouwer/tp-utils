@@ -77,7 +77,7 @@ public class TpThrough {
     //If the ray cast hits a wall it'll attempt and find a open spot behind the wall.
     private boolean wallCheck() {
         for (int i = 0; i < config.tpThroughRange() * 8; i++) {
-            blockHit = blockHit.add(vector.multiply(0.125 * i));
+            blockHit = blockHit.add(vector.multiply(0.125));
             blockPos = new BlockPos(blockHit);
 
             doesWallExist = CollisionCheck.canCollide(blockPos);
@@ -87,13 +87,20 @@ public class TpThrough {
                 config.setPreviousLocation(minecraft.player.getPos());
 
                 boolean isMiddleBlockFree = !CollisionCheck.canCollide(blockPos);
+
+                if (config.isCrawlingAllowed() && isMiddleBlockFree) {
+                    minecraft.player.sendChatMessage(config.tpMethod() + " "  + blockPos.getX() + " " + blockPos.getY() + " " + blockPos.getZ());
+                    return true;
+                }
+
                 boolean isBottomBlockFree = !CollisionCheck.canCollide(blockPos.add(0, -1, 0));
                 boolean isTopBlockFree = !CollisionCheck.canCollide(blockPos.add(0,1,0));
 
                 if (isMiddleBlockFree && isBottomBlockFree) {
                     minecraft.player.sendChatMessage(config.tpMethod() + " "  + blockPos.getX() + " " + (blockPos.getY() - 1) + " " + blockPos.getZ());
                     return true;
-                } else if (isMiddleBlockFree && isTopBlockFree) {
+                }
+                else if (isMiddleBlockFree && isTopBlockFree) {
                     minecraft.player.sendChatMessage(config.tpMethod() + " "  + blockPos.getX() + " " + blockPos.getY() + " " + blockPos.getZ());
                     return true;
                 }
