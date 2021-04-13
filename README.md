@@ -61,10 +61,13 @@ Default: 100 (blocks)
 
 How far should the mod try to teleport you forward
 
-## **Versions & Dependencies**
-**F(at)**
+**Allow Crawling**
 
-This version already includes some of the dependencies that you’ll need to get most out of this mod.
+Default: False
+
+Allow the mod to teleport you into a 1 block high space.
+
+## **Dependencies**
 
 Included:
 - [Cloth Config API Fabric](https://github.com/shedaniel/cloth-config) (Is required to make the config work)
@@ -72,16 +75,5 @@ Included:
 Required:
 - [Fabric API](https://github.com/FabricMC/fabric)
 
-Optional:
-- [Mod Menu](https://github.com/TerraformersMC/ModMenu) (This mod allows you to edit the configs in game)
-
-**L(ight)**
-
-This version doesn’t include any of dependencies and requires you to manually add the following:
-
-Required:
-- [Fabric API](https://github.com/FabricMC/fabric)
-- [Cloth Config API Fabric](https://github.com/shedaniel/cloth-config) (Is required to make the config work)
- 		
 Optional:
 - [Mod Menu](https://github.com/TerraformersMC/ModMenu) (This mod allows you to edit the configs in game)
