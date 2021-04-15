@@ -48,7 +48,7 @@ public class TpOnTop {
 
         if (doesWallExist)
         {
-            for (int j = 1; j < 385; j++) {
+            for (int j = 1; j < minecraft.world.getHeight()+1; j++) {
                 boolean isBottomBlockFree = !CollisionCheck.canCollide(blockPos.add(0, j,0));
                 boolean isTopBlockFree = !CollisionCheck.canCollide(new BlockPos(blockPos.add(0,j + 1,0)));
 

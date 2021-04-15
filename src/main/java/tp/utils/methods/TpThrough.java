@@ -83,7 +83,7 @@ public class TpThrough {
             doesWallExist = CollisionCheck.canCollide(blockPos);
             boolean isLoaded = minecraft.world.getChunkManager().isChunkLoaded(blockPos.getX() / 16, blockPos.getZ() / 16);
 
-            if (!doesWallExist && blockPos.getY() > -64 && isLoaded) {
+            if (isLoaded && !doesWallExist && (!config.isBedrockLimitSet() || blockPos.getY() > minecraft.world.getBottomY())) {
                 config.setPreviousLocation(minecraft.player.getPos());
 
                 boolean isMiddleBlockFree = !CollisionCheck.canCollide(blockPos);
