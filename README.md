@@ -1,4 +1,4 @@
-# **TP Utils**
+![icon-small](https://user-images.githubusercontent.com/84018133/117811201-9026d280-b260-11eb-9363-6e344db93bc3.png)
 
 This is a teleport utility mod that should greatly benefit creative players, making it much easier to get around. It includes but is not limited to highly improved and custom versions of the WE compass teleports (/thru & /jumpto). This mod uses Ray Casting to determine the block you’re looking at from a great distance and with extreme precision. 
 
