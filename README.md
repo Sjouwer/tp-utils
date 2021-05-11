@@ -67,7 +67,7 @@ Default: False
 
 Allow the mod to teleport you into a 1 block high space.
 
-## Dependencies**
+## **Dependencies**
 
 Included:
 - [Auto Config Updated API](https://github.com/shedaniel/AutoConfig) (Is needed to make the config work)
