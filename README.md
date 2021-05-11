@@ -1,4 +1,4 @@
-# **TP Utils**
+![icon-small](https://user-images.githubusercontent.com/84018133/117811201-9026d280-b260-11eb-9363-6e344db93bc3.png)
 
 This is a teleport utility mod that should greatly benefit creative players, making it much easier to get around. It includes but is not limited to highly improved and custom versions of the WE compass teleports (/thru & /jumpto). This mod uses Ray Casting to determine the block you’re looking at from a great distance and with extreme precision. 
 
@@ -59,12 +59,9 @@ From how far should the mod be able to detect the block you’re looking at to t
 
 Default: 100 (blocks)
 
-How far should the mod try to teleport you forward
+How far should the mod try to teleport you forward.
 
 ## **Versions & Dependencies**
-**F(at)**
-
-This version already includes some of the dependencies that you’ll need to get most out of this mod.
 
 Included:
 - [Auto Config Updated API](https://github.com/shedaniel/AutoConfig) (Is needed to make the config work)
@@ -75,17 +72,4 @@ Required:
 - [Fabric API](https://github.com/FabricMC/fabric)
 
 Optional:
-- [Mod Menu](https://github.com/TerraformersMC/ModMenu) (This mod allows you to edit the configs in game)
-
-**L(ight)**
-
-This version doesn’t include any of dependencies and requires you to manually add the following:
-
-Required:
-- [Fabric API](https://github.com/FabricMC/fabric)
-- [Auto Config Updated API](https://github.com/shedaniel/AutoConfig) (Is required to make the config work)
-- [Cloth Config API Fabric](https://github.com/shedaniel/cloth-config) (Required for Auto Config)
- 		
-Optional:
-- [Cotton Client Commands](https://github.com/CottonMC/ClientCommands) (Is needed to make any of the commands work)
 - [Mod Menu](https://github.com/TerraformersMC/ModMenu) (This mod allows you to edit the configs in game)
