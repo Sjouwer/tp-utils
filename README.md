@@ -59,13 +59,19 @@ From how far should the mod be able to detect the block you’re looking at to t
 
 Default: 100 (blocks)
 
-How far should the mod try to teleport you forward
+How far should the mod try to teleport you forward.
 
 **Allow Crawling**
 
 Default: False
 
 Allow the mod to teleport you into a 1 block high space.
+
+**Set Bedrock Limit**
+
+Default: True
+
+Stop the mod from teleporting you below bedrock / the bottom world limit.
 
 ## **Dependencies**
 
