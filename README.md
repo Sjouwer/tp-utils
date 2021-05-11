@@ -61,7 +61,13 @@ Default: 100 (blocks)
 
 How far should the mod try to teleport you forward.
 
-## **Versions & Dependencies**
+**Allow Crawling**
+
+Default: False
+
+Allow the mod to teleport you into a 1 block high space.
+
+## **Dependencies**
 
 Included:
 - [Auto Config Updated API](https://github.com/shedaniel/AutoConfig) (Is needed to make the config work)
