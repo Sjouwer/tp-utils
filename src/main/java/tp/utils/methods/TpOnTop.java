@@ -2,7 +2,7 @@ package tp.utils.methods;
 
 import me.shedaniel.autoconfig.AutoConfig;
 import tp.utils.config.ModConfig;
-import tp.utils.util.CollisionCheck;
+import tp.utils.util.BlockCheck;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.BaseText;
 import net.minecraft.text.LiteralText;
@@ -25,8 +25,7 @@ public class TpOnTop {
     private Vec3d blockHit;
     private BlockPos blockPos;
 
-    public TpOnTop()
-    {
+    public TpOnTop() {
         config = AutoConfig.getConfigHolder(ModConfig.class).getConfig();
     }
 
@@ -40,7 +39,7 @@ public class TpOnTop {
         blockHit = hit.getPos().add(vector.multiply(0.05));
         blockPos = new BlockPos(blockHit);
 
-        doesWallExist = CollisionCheck.canCollide(blockPos);
+        doesWallExist = BlockCheck.canCollide(blockPos, !config.isLavaAllowed());
 
         while (!doesWallExist && distance < config.tpOnTopRange()){
             recastRay();
@@ -49,8 +48,8 @@ public class TpOnTop {
         if (doesWallExist)
         {
             for (int j = 1; j < minecraft.world.getHeight()+1; j++) {
-                boolean isBottomBlockFree = !CollisionCheck.canCollide(blockPos.add(0, j,0));
-                boolean isTopBlockFree = !CollisionCheck.canCollide(new BlockPos(blockPos.add(0,j + 1,0)));
+                boolean isBottomBlockFree = !BlockCheck.canCollide(blockPos.add(0, j,0), !config.isLavaAllowed());
+                boolean isTopBlockFree = !BlockCheck.canCollide(new BlockPos(blockPos.add(0,j + 1,0)), !config.isLavaAllowed());
 
                 if (isBottomBlockFree && ( config.isCrawlingAllowed() || isTopBlockFree )) {
                     config.setPreviousLocation(minecraft.player.getPos());
@@ -75,6 +74,6 @@ public class TpOnTop {
         blockHit = hit.getPos().add(vector.multiply(0.05));
         blockPos = new BlockPos(blockHit);
 
-        doesWallExist = CollisionCheck.canCollide(blockPos);
+        doesWallExist = BlockCheck.canCollide(blockPos, !config.isLavaAllowed());
     }
 }

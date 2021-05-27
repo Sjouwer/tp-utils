@@ -18,6 +18,8 @@ public class ModConfig implements ConfigData {
     @ConfigEntry.Gui.Tooltip
     private boolean allowCrawling = false;
     @ConfigEntry.Gui.Tooltip
+    private boolean allowLava = false;
+    @ConfigEntry.Gui.Tooltip
     private boolean setBedrockLimit = true;
     @ConfigEntry.Gui.Excluded
     private Vec3d previousLocation;
@@ -40,6 +42,10 @@ public class ModConfig implements ConfigData {
 
     public boolean isCrawlingAllowed() {
         return allowCrawling;
+    }
+
+    public boolean isLavaAllowed() {
+        return allowLava;
     }
 
     public boolean isBedrockLimitSet() {
