@@ -11,8 +11,8 @@
   ],
   "contact": {
     "homepage": "https://www.curseforge.com/minecraft/mc-mods/tp-utils",
-    "sources": "https://gitlab.com/project_sandbox/mods/tp-utils/",
-    "issues": "https://gitlab.com/project_sandbox/mods/tp-utils/-/issues"
+    "sources": "https://github.com/Sjouwer/tp-utils",
+    "issues": "https://github.com/Sjouwer/tp-utils/issues"
   },
 
   "license": "GNU General Public License v3.0",
