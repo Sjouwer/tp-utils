@@ -5,8 +5,8 @@ import tp.utils.config.ModConfig;
 import net.minecraft.client.MinecraftClient;
 
 public class ChunkTp {
-    private ModConfig config;
-    private MinecraftClient minecraft = MinecraftClient.getInstance();
+    private final ModConfig config;
+    private static final MinecraftClient minecraft = MinecraftClient.getInstance();
 
     public ChunkTp() {
         config = AutoConfig.getConfigHolder(ModConfig.class).getConfig();

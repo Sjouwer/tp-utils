@@ -15,8 +15,8 @@ import net.minecraft.world.RaycastContext;
 import static net.minecraft.text.Style.EMPTY;
 
 public class TpThrough {
-    private ModConfig config;
-    private MinecraftClient minecraft = MinecraftClient.getInstance();
+    private final ModConfig config;
+    private static final MinecraftClient minecraft = MinecraftClient.getInstance();
 
     private double distance;
     private boolean doesWallExist;
