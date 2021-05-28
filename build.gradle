@@ -18,6 +18,10 @@ repositories {
 		//Cloth Config
 		url "https://maven.shedaniel.me/"
 	}
+	maven {
+		//Mod Menu
+		url "https://maven.terraformersmc.com/releases/"
+	}
 }
 
 dependencies {
@@ -27,7 +31,7 @@ dependencies {
 
 	//Fabric api
 	modImplementation "net.fabricmc.fabric-api:fabric-api:0.34.6+1.16"
-	modImplementation "io.github.prospector:modmenu:1.14.6+build.31"
+	modImplementation "com.terraformersmc:modmenu:1.16.9"
 
 	modApi("me.shedaniel.cloth:cloth-config-fabric:4.11.26") {
 		exclude(group: "net.fabricmc.fabric-api")
