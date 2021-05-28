@@ -2,7 +2,7 @@ package tp.utils.methods;
 
 import tp.utils.config.ModConfig;
 import tp.utils.util.CollisionCheck;
-import me.sargunvohra.mcmods.autoconfig1u.AutoConfig;
+import me.shedaniel.autoconfig.AutoConfig;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.BaseText;
 import net.minecraft.text.LiteralText;
