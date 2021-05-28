@@ -13,6 +13,7 @@ public class Commands {
     private final TpOnTop tpOnTop = new TpOnTop();
     private final TpForward tpForward = new TpForward();
     private final TpBack tpBack = new TpBack();
+    private final TpGround tpGround = new TpGround();
 
     public void registerCommands(CommandDispatcher<FabricClientCommandSource> dispatcher) {
         dispatcher.register(literal("tpu")
@@ -53,6 +54,14 @@ public class Commands {
                 .then(literal("back")
                         .executes(ctx -> {
                                     tpBack.tpBack();
+                                    return 1;
+                                }
+                        )));
+
+        dispatcher.register(literal("tpu")
+                .then(literal("ground")
+                        .executes(ctx -> {
+                                    tpGround.tpGround();
                                     return 1;
                                 }
                         )));
