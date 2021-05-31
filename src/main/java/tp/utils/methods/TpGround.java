@@ -33,8 +33,7 @@ public class TpGround {
         BlockPos blockPos = new BlockPos(blockHit);
 
         BaseText message;
-        if (blockPos.getY() == 0)
-        {
+        if (blockPos.getY() == 0) {
             message = new LiteralText("There is no ground below you!");
         }
         else if (blockPos.getY() == minecraft.player.getPos().getY()) {

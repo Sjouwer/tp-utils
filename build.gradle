@@ -15,12 +15,12 @@ minecraft {
 
 repositories {
 	maven {
-		//Cloth Config
-		url "https://maven.shedaniel.me/"
+		name = 'ClothConfig'
+		url = 'https://maven.shedaniel.me/'
 	}
 	maven {
-		//Mod Menu
-		url "https://maven.terraformersmc.com/releases/"
+		name = 'ModMenu'
+		url = 'https://maven.terraformersmc.com/releases/'
 	}
 }
 
@@ -31,8 +31,11 @@ dependencies {
 
 	//Fabric api
 	modImplementation "net.fabricmc.fabric-api:fabric-api:0.34.6+1.16"
+
+	//Mod Menu
 	modImplementation "com.terraformersmc:modmenu:1.16.9"
 
+	//Cloth Config
 	modApi("me.shedaniel.cloth:cloth-config-fabric:4.11.26") {
 		exclude(group: "net.fabricmc.fabric-api")
 	}

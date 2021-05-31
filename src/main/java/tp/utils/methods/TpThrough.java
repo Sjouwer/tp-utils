@@ -83,23 +83,16 @@ public class TpThrough {
             boolean isLoaded = minecraft.world.getChunkManager().isChunkLoaded(blockPos.getX() / 16, blockPos.getZ() / 16);
 
             if (isLoaded && !doesWallExist && (!config.isBedrockLimitSet() || blockPos.getY() > 0)) {
-                config.setPreviousLocation(minecraft.player.getPos());
-
-                boolean isMiddleBlockFree = !BlockCheck.canCollide(blockPos, !config.isLavaAllowed());
-
-                if (config.isCrawlingAllowed() && isMiddleBlockFree) {
-                    minecraft.player.sendChatMessage(config.tpMethod() + " "  + blockPos.getX() + " " + blockPos.getY() + " " + blockPos.getZ());
-                    return true;
-                }
-
                 boolean isBottomBlockFree = !BlockCheck.canCollide(blockPos.add(0, -1, 0), !config.isLavaAllowed());
                 boolean isTopBlockFree = !BlockCheck.canCollide(blockPos.add(0,1,0), !config.isLavaAllowed());
 
-                if (isMiddleBlockFree && isBottomBlockFree) {
+                if (isBottomBlockFree) {
+                    config.setPreviousLocation(minecraft.player.getPos());
                     minecraft.player.sendChatMessage(config.tpMethod() + " "  + blockPos.getX() + " " + (blockPos.getY() - 1) + " " + blockPos.getZ());
                     return true;
                 }
-                else if (isMiddleBlockFree && isTopBlockFree) {
+                else if (isTopBlockFree || config.isCrawlingAllowed()) {
+                    config.setPreviousLocation(minecraft.player.getPos());
                     minecraft.player.sendChatMessage(config.tpMethod() + " "  + blockPos.getX() + " " + blockPos.getY() + " " + blockPos.getZ());
                     return true;
                 }
