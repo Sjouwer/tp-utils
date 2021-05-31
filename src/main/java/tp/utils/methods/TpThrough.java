@@ -14,10 +14,10 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.RayTraceContext;
 
 public class TpThrough {
-    private ModConfig config;
-    private MinecraftClient minecraft = MinecraftClient.getInstance();
+    private final ModConfig config;
+    private static final MinecraftClient minecraft = MinecraftClient.getInstance();
 
-    private Style style = new Style();
+    private final Style style = new Style();
     private double distance;
     private boolean doesWallExist;
     private HitResult hit;
@@ -25,8 +25,7 @@ public class TpThrough {
     private Vec3d blockHit;
     private BlockPos blockPos;
 
-    public TpThrough()
-    {
+    public TpThrough() {
         config = AutoConfig.getConfigHolder(ModConfig.class).getConfig();
     }
 

@@ -9,11 +9,11 @@ import net.minecraft.text.LiteralText;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.Vec3d;
 
-
 public class TpBack {
-    private ModConfig config;
-    private MinecraftClient minecraft = MinecraftClient.getInstance();
-    private Style style = new Style();
+    private final ModConfig config;
+    private static final MinecraftClient minecraft = MinecraftClient.getInstance();
+
+    private final Style style = new Style();
 
     public TpBack() {
         config = AutoConfig.getConfigHolder(ModConfig.class).getConfig();

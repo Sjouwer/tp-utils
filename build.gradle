@@ -15,6 +15,10 @@ minecraft {
 
 repositories {
 	maven {
+		name = 'ModMenu'
+		url = 'https://maven.terraformersmc.com/releases/'
+	}
+	maven {
 		name = 'CottonMC'
 		url = 'https://server.bbkr.space/artifactory/libs-release'
 	}
@@ -23,22 +27,28 @@ repositories {
 dependencies {
 	minecraft "com.mojang:minecraft:1.15.2"
 	mappings "net.fabricmc:yarn:1.15.2+build.17:v2"
-	modImplementation "net.fabricmc:fabric-loader:0.11.1"
+	modImplementation "net.fabricmc:fabric-loader:0.11.3"
 
-	//Fabric api
+	//Fabric API
 	modImplementation "net.fabricmc.fabric-api:fabric-api:0.28.5+1.15"
-	modImplementation "io.github.prospector:modmenu:1.10.2+build.32"
 
+	//Mod Menu
+	modImplementation "com.terraformersmc:modmenu:1.10.6"
+
+	//Cloth Config
 	modApi("me.shedaniel.cloth:config-2:2.14.2") {
 		exclude(group: "net.fabricmc.fabric-api")
+		exclude(group: "io.github.prospector")
 	}
 	include "me.shedaniel.cloth:config-2:2.14.2"
 
+	//Auto Config
 	modApi("me.sargunvohra.mcmods:autoconfig1u:2.2.0") {
 		exclude(group: "net.fabricmc.fabric-api")
 	}
 	include "me.sargunvohra.mcmods:autoconfig1u:2.2.0"
 
+	//Cotton Client Commands
 	modApi("io.github.cottonmc:cotton-client-commands:1.0.0+1.15.2") {
 		exclude(group: "net.fabricmc.fabric-api")
 	}
