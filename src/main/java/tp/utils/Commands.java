@@ -11,6 +11,7 @@ public class Commands implements ClientCommandPlugin {
     private final TpOnTop tpOnTop = new TpOnTop();
     private final TpForward tpForward = new TpForward();
     private final TpBack tpBack = new TpBack();
+    private final TpGround tpGround = new TpGround();
 
     @Override
     public void registerCommands(CommandDispatcher<CottonClientCommandSource> dispatcher) {
@@ -52,6 +53,13 @@ public class Commands implements ClientCommandPlugin {
                 .then(ArgumentBuilders.literal("back")
                         .executes(ctx -> {
                                     tpBack.tpBack();
+                                    return 1;
+                                }
+                        )));
+        dispatcher.register(ArgumentBuilders.literal("tpu")
+                .then(ArgumentBuilders.literal("ground")
+                        .executes(ctx -> {
+                                    tpGround.tpGround();
                                     return 1;
                                 }
                         )));
