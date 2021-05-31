@@ -1,6 +1,7 @@
 package tp.utils.methods;
 
 import me.shedaniel.autoconfig.AutoConfig;
+import net.minecraft.util.math.BlockPos;
 import tp.utils.config.ModConfig;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.BaseText;
@@ -22,10 +23,8 @@ public class TpBack {
         Vec3d coordinates = config.getPreviousLocation();
         if (coordinates != null) {
             config.setPreviousLocation(minecraft.player.getPos());
-            int x = (int)coordinates.x;
-            int y = (int)coordinates.y;
-            int z = (int)coordinates.z;
-            minecraft.player.sendChatMessage(config.tpMethod() + " " + x + " " + y + " " + z);
+            BlockPos blockPos = new BlockPos(coordinates);
+            minecraft.player.sendChatMessage(config.tpMethod() + " " + blockPos.getX() + " " + blockPos.getY() + " " + blockPos.getZ());
         } else {
             BaseText message = new LiteralText("Unable to find a previous location");
             message.setStyle(EMPTY.withColor(Formatting.DARK_RED));
