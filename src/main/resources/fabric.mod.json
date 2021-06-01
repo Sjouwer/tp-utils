@@ -27,11 +27,11 @@
     "cotton-client-commands": ["tp.utils.Commands"]
 },
 
-
   "depends": {
     "fabricloader": ">=0.4.0",
-    "fabric": "*",
+    "fabric": ">=0.14.0",
     "minecraft": "1.14.x",
+    "cloth-config2": ">=1.0.0",
     "autoconfig1u": ">=1.2.6"
   }
 }
