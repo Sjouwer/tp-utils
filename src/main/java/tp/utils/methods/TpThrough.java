@@ -2,7 +2,7 @@ package tp.utils.methods;
 
 import me.sargunvohra.mcmods.autoconfig1u.AutoConfig;
 import tp.utils.config.ModConfig;
-import tp.utils.util.CollisionCheck;
+import tp.utils.util.BlockCheck;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.BaseText;
 import net.minecraft.text.LiteralText;
@@ -39,7 +39,7 @@ public class TpThrough {
         blockHit = hit.getPos().add(vector.multiply(0.05));
         blockPos = new BlockPos(blockHit);
 
-        doesWallExist = CollisionCheck.canCollide(blockPos);
+        doesWallExist = BlockCheck.canCollide(blockPos, !config.isLavaAllowed());
 
         while (!doesWallExist && distance < config.tpThroughRange()) {
             recastRay();
@@ -71,7 +71,7 @@ public class TpThrough {
         blockHit = hit.getPos().add(vector.multiply(0.05));
         blockPos = new BlockPos(blockHit);
 
-        doesWallExist = CollisionCheck.canCollide(blockPos);
+        doesWallExist = BlockCheck.canCollide(blockPos, !config.isLavaAllowed());
     }
 
     //If the ray cast hits a wall it'll attempt and find a open spot behind the wall.
@@ -80,26 +80,19 @@ public class TpThrough {
             blockHit = blockHit.add(vector.multiply(0.125));
             blockPos = new BlockPos(blockHit);
 
-            doesWallExist = CollisionCheck.canCollide(blockPos);
+            doesWallExist = BlockCheck.canCollide(blockPos, !config.isLavaAllowed());
             boolean isLoaded = minecraft.world.getChunkManager().isChunkLoaded(blockPos.getX() / 16, blockPos.getZ() / 16);
 
-            if (!doesWallExist && blockPos.getY() > 0 && isLoaded) {
-                boolean isMiddleBlockFree = !CollisionCheck.canCollide(blockPos);
+            if (isLoaded && !doesWallExist && (!config.isBedrockLimitSet() || blockPos.getY() > 0)) {
+                boolean isBottomBlockFree = !BlockCheck.canCollide(blockPos.add(0, -1, 0), !config.isLavaAllowed());
+                boolean isTopBlockFree = !BlockCheck.canCollide(blockPos.add(0,1,0), !config.isLavaAllowed());
 
-                if (config.isCrawlingAllowed() && isMiddleBlockFree) {
-                    minecraft.player.sendChatMessage(config.tpMethod() + " "  + blockPos.getX() + " " + blockPos.getY() + " " + blockPos.getZ());
-                    return true;
-                }
-
-                boolean isBottomBlockFree = !CollisionCheck.canCollide(blockPos.add(0, -1, 0));
-                boolean isTopBlockFree = !CollisionCheck.canCollide(blockPos.add(0,1,0));
-
-                if (isMiddleBlockFree && isBottomBlockFree) {
+                if (isBottomBlockFree) {
                     config.setPreviousLocation(minecraft.player.getPos());
                     minecraft.player.sendChatMessage(config.tpMethod() + " "  + blockPos.getX() + " " + (blockPos.getY() - 1) + " " + blockPos.getZ());
                     return true;
                 }
-                else if (isMiddleBlockFree && isTopBlockFree) {
+                else if (isTopBlockFree || config.isCrawlingAllowed()) {
                     config.setPreviousLocation(minecraft.player.getPos());
                     minecraft.player.sendChatMessage(config.tpMethod() + " "  + blockPos.getX() + " " + blockPos.getY() + " " + blockPos.getZ());
                     return true;
