@@ -5,7 +5,6 @@ import me.sargunvohra.mcmods.autoconfig1u.AutoConfig;
 import net.fabricmc.api.Environment;
 import net.fabricmc.api.EnvType;
 import net.minecraft.client.gui.screen.Screen;
-
 import java.util.Optional;
 import java.util.function.Supplier;
 

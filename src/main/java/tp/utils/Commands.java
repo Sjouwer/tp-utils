@@ -6,11 +6,11 @@ import com.mojang.brigadier.CommandDispatcher;
 import io.github.cottonmc.clientcommands.*;
 
 public class Commands implements ClientCommandPlugin {
-    private ChunkTp chunkTp = new ChunkTp();
-    private TpThrough tpThrough = new TpThrough();
-    private TpOnTop tpOnTop = new TpOnTop();
-    private TpForward tpForward = new TpForward();
-    private TpBack tpBack = new TpBack();
+    private final ChunkTp chunkTp = new ChunkTp();
+    private final TpThrough tpThrough = new TpThrough();
+    private final TpOnTop tpOnTop = new TpOnTop();
+    private final TpForward tpForward = new TpForward();
+    private final TpBack tpBack = new TpBack();
 
     @Override
     public void registerCommands(CommandDispatcher<CottonClientCommandSource> dispatcher) {

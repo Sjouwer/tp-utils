@@ -12,9 +12,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 
 public class TpForward {
-    private ModConfig config;
-    private MinecraftClient minecraft = MinecraftClient.getInstance();
-    private Style style = new Style();
+    private final ModConfig config;
+    private static final MinecraftClient minecraft = MinecraftClient.getInstance();
+
+    private final Style style = new Style();
 
     public TpForward() {
         config = AutoConfig.getConfigHolder(ModConfig.class).getConfig();
@@ -29,8 +30,7 @@ public class TpForward {
 
         boolean isLoaded = minecraft.world.getChunkManager().isChunkLoaded(blockPos.getX() / 16, blockPos.getZ() / 16);
 
-        if (isLoaded)
-        {
+        if (isLoaded) {
             config.setPreviousLocation(minecraft.player.getPos());
             minecraft.player.sendChatMessage(config.tpMethod() + " " + blockPos.getX() + " " + blockPos.getY() + " " + blockPos.getZ());
             return;

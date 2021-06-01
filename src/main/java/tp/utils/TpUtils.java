@@ -12,6 +12,6 @@ public class TpUtils implements ModInitializer {
         AutoConfig.register(ModConfig.class, JanksonConfigSerializer::new);
 
         KeyBindings keyBindings = new KeyBindings();
-        keyBindings.SetKeyBindings();
+        keyBindings.setKeyBindings();
     }
 }

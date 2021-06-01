@@ -8,18 +8,13 @@ import org.lwjgl.glfw.GLFW;
 import tp.utils.methods.*;
 
 public class KeyBindings {
-    private String category = "key.categories.tp_utils";
-    private TpThrough tpThrough;
-    private TpOnTop tpOnTop;
-    private TpForward tpForward;
-    private TpBack tpBack;
+    private final TpThrough tpThrough = new TpThrough();
+    private final TpOnTop tpOnTop = new TpOnTop();
+    private final TpForward tpForward = new TpForward();
+    private final TpBack tpBack = new TpBack();
+    private static final String CATEGORY = "key.categories.tp_utils";
 
-    public void SetKeyBindings(){
-        tpThrough = new TpThrough();
-        tpOnTop = new TpOnTop();
-        tpForward = new TpForward();
-        tpBack = new TpBack();
-
+    public void setKeyBindings(){
         setKeyBindingTPThrough();
         setKeyBindingTPOnTop();
         setKeyBindingTPForward();
@@ -27,7 +22,7 @@ public class KeyBindings {
     }
 
     private void setKeyBindingTPThrough() {
-        KeyBinding tpThroughKey = new KeyBinding("key.tp_utils.tp_through", InputUtil.Type.MOUSE, GLFW.GLFW_MOUSE_BUTTON_5, category);
+        KeyBinding tpThroughKey = new KeyBinding("key.tp_utils.tp_through", InputUtil.Type.MOUSE, GLFW.GLFW_MOUSE_BUTTON_5, CATEGORY);
         KeyBindingHelper.registerKeyBinding(tpThroughKey);
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
@@ -38,7 +33,7 @@ public class KeyBindings {
     }
 
     private void setKeyBindingTPOnTop() {
-        KeyBinding tpOnTopKey = new KeyBinding("key.tp_utils.tp_on_top", InputUtil.Type.MOUSE, GLFW.GLFW_MOUSE_BUTTON_4, category);
+        KeyBinding tpOnTopKey = new KeyBinding("key.tp_utils.tp_on_top", InputUtil.Type.MOUSE, GLFW.GLFW_MOUSE_BUTTON_4, CATEGORY);
         KeyBindingHelper.registerKeyBinding(tpOnTopKey);
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
@@ -49,7 +44,7 @@ public class KeyBindings {
     }
 
     private void setKeyBindingTPForward() {
-        KeyBinding tpForwardKey = new KeyBinding("key.tp_utils.tp_forward", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_UNKNOWN, category);
+        KeyBinding tpForwardKey = new KeyBinding("key.tp_utils.tp_forward", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_UNKNOWN, CATEGORY);
         KeyBindingHelper.registerKeyBinding(tpForwardKey);
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
@@ -60,7 +55,7 @@ public class KeyBindings {
     }
 
     private void setKeyBindingTPBack() {
-        KeyBinding tpBackKey = new KeyBinding("key.tp_utils.tp_back", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_UNKNOWN, category);
+        KeyBinding tpBackKey = new KeyBinding("key.tp_utils.tp_back", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_UNKNOWN, CATEGORY);
         KeyBindingHelper.registerKeyBinding(tpBackKey);
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {

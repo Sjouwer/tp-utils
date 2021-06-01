@@ -5,7 +5,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.util.math.BlockPos;
 
 public final class CollisionCheck {
-    private static MinecraftClient minecraft = MinecraftClient.getInstance();
+    private static final MinecraftClient minecraft = MinecraftClient.getInstance();
 
     private CollisionCheck() {
     }

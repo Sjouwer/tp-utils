@@ -14,9 +14,10 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.RayTraceContext;
 
 public class TpThrough {
-    private ModConfig config;
-    private MinecraftClient minecraft = MinecraftClient.getInstance();
-    private Style style = new Style();
+    private final ModConfig config;
+    private static final MinecraftClient minecraft = MinecraftClient.getInstance();
+
+    private final Style style = new Style();
     private double distance;
     private boolean doesWallExist;
     private HitResult hit;
@@ -40,7 +41,7 @@ public class TpThrough {
 
         doesWallExist = CollisionCheck.canCollide(blockPos);
 
-        while (!doesWallExist && distance < config.tpThroughRange()){
+        while (!doesWallExist && distance < config.tpThroughRange()) {
             recastRay();
         }
 
@@ -58,7 +59,6 @@ public class TpThrough {
         style.setColor(Formatting.DARK_RED);
         message.setStyle(style);
         minecraft.player.sendMessage(message);
-
     }
 
     //If the ray cast hits a non solid block like grass, it'll redo the ray cast past the grass block.
@@ -94,8 +94,7 @@ public class TpThrough {
                 boolean isBottomBlockFree = !CollisionCheck.canCollide(blockPos.add(0, -1, 0));
                 boolean isTopBlockFree = !CollisionCheck.canCollide(blockPos.add(0,1,0));
 
-                if (isMiddleBlockFree && isBottomBlockFree
-                ) {
+                if (isMiddleBlockFree && isBottomBlockFree) {
                     config.setPreviousLocation(minecraft.player.getPos());
                     minecraft.player.sendChatMessage(config.tpMethod() + " "  + blockPos.getX() + " " + (blockPos.getY() - 1) + " " + blockPos.getZ());
                     return true;

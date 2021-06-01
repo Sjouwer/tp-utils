@@ -14,9 +14,10 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.RayTraceContext;
 
 public class TpOnTop {
-    private ModConfig config;
-    private MinecraftClient minecraft = MinecraftClient.getInstance();
-    private Style style = new Style();
+    private final ModConfig config;
+    private static final MinecraftClient minecraft = MinecraftClient.getInstance();
+
+    private final Style style = new Style();
     private double distance;
     private boolean doesWallExist;
     private HitResult hit;
@@ -40,12 +41,11 @@ public class TpOnTop {
 
         doesWallExist = CollisionCheck.canCollide(blockPos);
 
-        while (!doesWallExist && distance < config.tpOnTopRange()){
+        while (!doesWallExist && distance < config.tpOnTopRange()) {
             recastRay();
         }
 
-        if (doesWallExist)
-        {
+        if (doesWallExist) {
             for (int j = 1; j < 257; j++) {
                 boolean isBottomBlockFree = !CollisionCheck.canCollide(blockPos.add(0, j,0));
                 boolean isTopBlockFree = !CollisionCheck.canCollide(new BlockPos(blockPos.add(0,j + 1,0)));
@@ -62,7 +62,6 @@ public class TpOnTop {
         style.setColor(Formatting.DARK_RED);
         message.setStyle(style);
         minecraft.player.sendMessage(message);
-
     }
 
     //If the ray cast hits a non solid block like grass, it'll redo the ray cast past the grass block.
