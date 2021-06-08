@@ -12,12 +12,12 @@ public class ChunkTp {
         config = AutoConfig.getConfigHolder(ModConfig.class).getConfig();
     }
 
-    public void chunkTp(int x, int z) {
+    public void chunkTp(int x, int y, int z) {
         int xPos = x * 16 + 8;
-        int yPos = 100;
+        int yPos = y * 16 + 8;
         int zPos = z * 16 + 8;
 
         config.setPreviousLocation(minecraft.player.getPos());
-        minecraft.player.sendChatMessage(config.tpMethod() + " " + xPos + " " + yPos + " " + zPos);
+        minecraft.player.sendChatMessage(config.tpMethod() + " " + xPos + ".0 " + yPos + ".0 " + zPos + ".0");
     }
 }
