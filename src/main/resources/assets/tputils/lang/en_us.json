@@ -4,19 +4,35 @@
     "key.tp_utils.tp_on_top": "TP on Top",
     "key.tp_utils.tp_forward": "TP Forward",
     "key.tp_utils.tp_back": "TP Back",
+
     "text.autoconfig.tp_utils.title": "TP Utils Config",
+
     "text.autoconfig.tp_utils.option.tpMethod": "TP Method",
-    "text.autoconfig.tp_utils.option.tpThroughRange": "TP Through Range",
-    "text.autoconfig.tp_utils.option.tpOnTopRange": "TP On Top Range",
-    "text.autoconfig.tp_utils.option.tpForwardRange": "TP Forward Range",
-    "text.autoconfig.tp_utils.option.allowCrawling": "Allow Crawling",
-    "text.autoconfig.tp_utils.option.allowLava": "Allow Lava",
-    "text.autoconfig.tp_utils.option.setBedrockLimit": "Set Bedrock Limit",
     "text.autoconfig.tp_utils.option.tpMethod.@Tooltip": "TP command, for example /tp or /tppos",
+
+    "text.autoconfig.tp_utils.option.tpThroughRange": "TP Through Range",
     "text.autoconfig.tp_utils.option.tpThroughRange.@Tooltip": "From how far should the mod be able to detect blocks to TP through",
+
+    "text.autoconfig.tp_utils.option.tpOnTopRange": "TP On Top Range",
     "text.autoconfig.tp_utils.option.tpOnTopRange.@Tooltip": "From how far should the mod be able to detect blocks to TP onto",
+
+    "text.autoconfig.tp_utils.option.tpForwardRange": "TP Forward Range",
     "text.autoconfig.tp_utils.option.tpForwardRange.@Tooltip": "The amount of blocks you'll TP forward",
+
+    "text.autoconfig.tp_utils.option.allowCrawling": "Allow Crawling",
     "text.autoconfig.tp_utils.option.allowCrawling.@Tooltip": "Allow the mod to teleport you into a 1 block high space",
+
+    "text.autoconfig.tp_utils.option.allowLava": "Allow Lava",
     "text.autoconfig.tp_utils.option.allowLava.@Tooltip": "Allow the mod to teleport you into lava",
-    "text.autoconfig.tp_utils.option.setBedrockLimit.@Tooltip": "Stop the mod from teleporting you below bedrock / the bottom world limit"
+
+    "text.autoconfig.tp_utils.option.setBedrockLimit": "Set Bedrock Limit",
+    "text.autoconfig.tp_utils.option.setBedrockLimit.@Tooltip": "Stop the mod from teleporting you below bedrock / the bottom world limit",
+
+    "text.tp_utils.message.tooMuchWall": "Too much wall. You shall not pass!",
+    "text.tp_utils.message.noWallFound": "Nothing to pass through!",
+    "text.tp_utils.message.noBlockFound": "No block in sight (or too far)!",
+    "text.tp_utils.message.chunkNotLoaded": "Chunk over there hasn't loaded yet (or render distance too low)!",
+    "text.tp_utils.message.noGroundFound": "There is no ground below you!",
+    "text.tp_utils.message.alreadyGrounded": "You're already grounded!",
+    "text.tp_utils.message.noPreviousLocation": "Unable to find a previous location"
 }

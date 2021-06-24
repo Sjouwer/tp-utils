@@ -1,11 +1,11 @@
 package tp.utils.methods;
 
 import me.shedaniel.autoconfig.AutoConfig;
+import net.minecraft.text.TranslatableText;
 import tp.utils.config.ModConfig;
 import tp.utils.util.BlockCheck;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.BaseText;
-import net.minecraft.text.LiteralText;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
@@ -59,7 +59,7 @@ public class TpOnTop {
             }
         }
 
-        BaseText message = new LiteralText("No block in sight (or too far)!");
+        BaseText message = new TranslatableText("text.tp_utils.message.noBlockFound");
         message.setStyle(EMPTY.withColor(Formatting.DARK_RED));
         minecraft.player.sendMessage(message, false);
     }

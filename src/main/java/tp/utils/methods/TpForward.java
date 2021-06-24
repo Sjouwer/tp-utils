@@ -1,10 +1,10 @@
 package tp.utils.methods;
 
 import me.shedaniel.autoconfig.AutoConfig;
+import net.minecraft.text.TranslatableText;
 import tp.utils.config.ModConfig;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.BaseText;
-import net.minecraft.text.LiteralText;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
@@ -36,7 +36,7 @@ public class TpForward {
             return;
         }
 
-        BaseText message = new LiteralText("Chunk over there hasn't loaded yet (or render distance too low)!");
+        BaseText message = new TranslatableText("text.tp_utils.message.chunkNotLoaded");
         message.setStyle(EMPTY.withColor(Formatting.DARK_RED));
         minecraft.player.sendMessage(message, false);
     }

@@ -3,7 +3,7 @@ package tp.utils.methods;
 import me.shedaniel.autoconfig.AutoConfig;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.BaseText;
-import net.minecraft.text.LiteralText;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
@@ -34,10 +34,10 @@ public class TpGround {
 
         BaseText message;
         if (blockPos.getY() == minecraft.world.getBottomY()) {
-            message = new LiteralText("There is no ground below you!");
+            message = new TranslatableText("text.tp_utils.message.noGroundFound");
         }
         else if (blockPos.getY() == minecraft.player.getPos().getY()) {
-            message = new LiteralText("You're already grounded!");
+            message = new TranslatableText("text.tp_utils.message.alreadyGrounded");
         }
         else {
             config.setPreviousLocation(minecraft.player.getPos());
