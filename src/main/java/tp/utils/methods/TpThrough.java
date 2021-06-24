@@ -5,7 +5,7 @@ import tp.utils.util.BlockCheck;
 import me.shedaniel.autoconfig.AutoConfig;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.BaseText;
-import net.minecraft.text.LiteralText;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
@@ -50,10 +50,10 @@ public class TpThrough {
             if (wallCheck()) {
                 return;
             }
-            message = new LiteralText("Too much wall. You shall not pass!");
+            message = new TranslatableText("text.tp_utils.message.tooMuchWall");
         }
         else {
-            message = new LiteralText("Nothing to pass through!");
+            message = new TranslatableText("text.tp_utils.message.noWallFound");
         }
 
         message.setStyle(EMPTY.withColor(Formatting.DARK_RED));
