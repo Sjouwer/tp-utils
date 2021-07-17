@@ -1,4 +1,4 @@
-package tp.utils.util;
+package io.github.sjouwer.tputils.util;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Material;
@@ -12,10 +12,10 @@ public final class BlockCheck {
     }
 
     public static boolean canCollide(BlockPos pos, boolean lavaCheck) {
-        BlockState state = minecraft.world.getBlockState(pos);
         if (lavaCheck && isLava(pos)) {
             return true;
         }
+        BlockState state = minecraft.world.getBlockState(pos);
         return state.getMaterial().isSolid();
     }
 

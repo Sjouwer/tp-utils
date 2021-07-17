@@ -1,8 +1,8 @@
-package tp.utils;
+package io.github.sjouwer.tputils;
 
 import com.mojang.brigadier.arguments.IntegerArgumentType;
+import io.github.sjouwer.tputils.methods.*;
 import net.fabricmc.fabric.api.client.command.v1.FabricClientCommandSource;
-import tp.utils.methods.*;
 import com.mojang.brigadier.CommandDispatcher;
 
 import static net.fabricmc.fabric.api.client.command.v1.ClientCommandManager.*;

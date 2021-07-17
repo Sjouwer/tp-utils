@@ -1,8 +1,8 @@
-package tp.utils.methods;
+package io.github.sjouwer.tputils.methods;
 
+import io.github.sjouwer.tputils.config.ModConfig;
 import me.shedaniel.autoconfig.AutoConfig;
 import net.minecraft.text.TranslatableText;
-import tp.utils.config.ModConfig;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.BaseText;
 import net.minecraft.util.Formatting;
@@ -29,8 +29,7 @@ public class TpForward {
 
         boolean isLoaded = minecraft.world.getChunkManager().isChunkLoaded(blockPos.getX() / 16, blockPos.getZ() / 16);
 
-        if (isLoaded)
-        {
+        if (isLoaded) {
             config.setPreviousLocation(minecraft.player.getPos());
             minecraft.player.sendChatMessage(config.tpMethod() + " " + blockPos.getX() + " " + blockPos.getY() + " " + blockPos.getZ());
             return;

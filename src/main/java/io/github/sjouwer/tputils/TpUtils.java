@@ -1,10 +1,10 @@
-package tp.utils;
+package io.github.sjouwer.tputils;
 
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.JanksonConfigSerializer;
 import net.fabricmc.fabric.api.client.command.v1.ClientCommandManager;
 import net.fabricmc.api.ModInitializer;
-import tp.utils.config.ModConfig;
+import io.github.sjouwer.tputils.config.ModConfig;
 
 public class TpUtils implements ModInitializer {
 

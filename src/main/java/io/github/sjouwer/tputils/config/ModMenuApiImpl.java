@@ -1,4 +1,4 @@
-package tp.utils.config;
+package io.github.sjouwer.tputils.config;
 
 import com.terraformersmc.modmenu.api.ConfigScreenFactory;
 import com.terraformersmc.modmenu.api.ModMenuApi;

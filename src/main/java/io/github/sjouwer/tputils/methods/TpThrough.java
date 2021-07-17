@@ -1,9 +1,9 @@
-package tp.utils.methods;
+package io.github.sjouwer.tputils.methods;
 
+import io.github.sjouwer.tputils.config.ModConfig;
+import io.github.sjouwer.tputils.util.BlockCheck;
 import me.shedaniel.autoconfig.AutoConfig;
 import net.minecraft.text.TranslatableText;
-import tp.utils.config.ModConfig;
-import tp.utils.util.BlockCheck;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.BaseText;
 import net.minecraft.util.Formatting;
@@ -46,7 +46,7 @@ public class TpThrough {
         }
 
         BaseText message;
-        if(doesWallExist) {
+        if (doesWallExist) {
             if (wallCheck()) {
                 return;
             }

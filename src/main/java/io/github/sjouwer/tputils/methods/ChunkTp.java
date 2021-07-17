@@ -1,7 +1,7 @@
-package tp.utils.methods;
+package io.github.sjouwer.tputils.methods;
 
+import io.github.sjouwer.tputils.config.ModConfig;
 import me.shedaniel.autoconfig.AutoConfig;
-import tp.utils.config.ModConfig;
 import net.minecraft.client.MinecraftClient;
 
 public class ChunkTp {

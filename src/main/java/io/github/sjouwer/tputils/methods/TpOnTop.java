@@ -1,9 +1,9 @@
-package tp.utils.methods;
+package io.github.sjouwer.tputils.methods;
 
+import io.github.sjouwer.tputils.config.ModConfig;
+import io.github.sjouwer.tputils.util.BlockCheck;
 import me.shedaniel.autoconfig.AutoConfig;
 import net.minecraft.text.TranslatableText;
-import tp.utils.config.ModConfig;
-import tp.utils.util.BlockCheck;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.BaseText;
 import net.minecraft.util.Formatting;
@@ -45,8 +45,7 @@ public class TpOnTop {
             recastRay();
         }
 
-        if (doesWallExist)
-        {
+        if (doesWallExist) {
             for (int j = 1; j < minecraft.world.getHeight()+1; j++) {
                 boolean isBottomBlockFree = !BlockCheck.canCollide(blockPos.add(0, j,0), !config.isLavaAllowed());
                 boolean isTopBlockFree = !BlockCheck.canCollide(new BlockPos(blockPos.add(0,j + 1,0)), !config.isLavaAllowed());
