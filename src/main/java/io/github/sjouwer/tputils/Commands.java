@@ -21,10 +21,25 @@ public class Commands {
                         .then(argument("x", IntegerArgumentType.integer())
                                 .then(argument("z", IntegerArgumentType.integer())
                                         .executes(ctx -> {
-                                                    chunkTp.chunkTp(IntegerArgumentType.getInteger(ctx, "x"), IntegerArgumentType.getInteger(ctx, "z"));
+                                                    chunkTp.chunkTp(IntegerArgumentType.getInteger(ctx, "x"),
+                                                                    6,
+                                                                    IntegerArgumentType.getInteger(ctx, "z"));
                                                     return 1;
                                                 }
                                         )))));
+
+        dispatcher.register(literal("tpu")
+                .then(literal("chunk")
+                        .then(argument("x", IntegerArgumentType.integer())
+                                .then(argument("y", IntegerArgumentType.integer())
+                                        .then(argument("z", IntegerArgumentType.integer())
+                                                .executes(ctx -> {
+                                                            chunkTp.chunkTp(IntegerArgumentType.getInteger(ctx, "x"),
+                                                                            IntegerArgumentType.getInteger(ctx, "y"),
+                                                                            IntegerArgumentType.getInteger(ctx, "z"));
+                                                            return 1;
+                                                        }
+                                                ))))));
 
         dispatcher.register(literal("tpu")
                 .then(literal("through")
