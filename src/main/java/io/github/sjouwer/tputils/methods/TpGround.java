@@ -1,6 +1,7 @@
 package io.github.sjouwer.tputils.methods;
 
 import io.github.sjouwer.tputils.config.ModConfig;
+import io.github.sjouwer.tputils.util.BlockCheck;
 import me.shedaniel.autoconfig.AutoConfig;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.BaseText;
@@ -22,26 +23,29 @@ public class TpGround {
     }
 
     public void tpGround() {
-        Vec3d rayStart = minecraft.player.getPos().add(0, 1, 0);
-        if (rayStart.getY() > minecraft.world.getHeight()) {
-            rayStart = new Vec3d(rayStart.getX(), minecraft.world.getHeight() + 1, rayStart.getZ());
-        }
-        Vec3d rayEnd = new Vec3d(rayStart.getX(), minecraft.world.getBottomY(), rayStart.getZ());
-        HitResult hit = minecraft.world.raycast(new RaycastContext(rayStart, rayEnd, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, minecraft.player));
+        BlockPos blockPos = new BlockPos(minecraft.player.getPos());
+        double x = blockPos.getX() + 0.5;
+        double y = Math.min((blockPos.getY() + 1.0), 257.0);
+        double z = blockPos.getZ() + 0.5;
 
-        Vec3d blockHit = hit.getPos().add(0, 0.05, 0);
-        BlockPos blockPos = new BlockPos(blockHit);
+        Vec3d rayStart = new Vec3d(x, y, z);
+        Vec3d rayEnd = new Vec3d(x, 0, z);
+        HitResult hit = minecraft.world.raycast(new RaycastContext(rayStart, rayEnd, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, minecraft.player));
+        boolean isLava = BlockCheck.isLava(new BlockPos(hit.getPos()));
 
         BaseText message;
-        if (blockPos.getY() == minecraft.world.getBottomY()) {
+        if (hit.getPos().getY() == minecraft.player.getPos().getY()) {
+            message = new TranslatableText("text.tp_utils.message.alreadyGrounded");
+        }
+        else if (hit.getPos().getY() == 0) {
             message = new TranslatableText("text.tp_utils.message.noGroundFound");
         }
-        else if (blockPos.getY() == minecraft.player.getPos().getY()) {
-            message = new TranslatableText("text.tp_utils.message.alreadyGrounded");
+        else if (!config.isLavaAllowed() && isLava) {
+            message = new TranslatableText("text.tp_utils.message.lavaBelow");
         }
         else {
             config.setPreviousLocation(minecraft.player.getPos());
-            minecraft.player.sendChatMessage(config.tpMethod() + " " + blockPos.getX() + " " + blockPos.getY() + " " + blockPos.getZ());
+            minecraft.player.sendChatMessage(config.tpMethod() + " " + x + " " + hit.getPos().getY() + " " + z);
             return;
         }
 
