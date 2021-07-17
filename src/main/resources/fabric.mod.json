@@ -21,9 +21,9 @@
   "environment": "client",
   "entrypoints": {
     "main": [
-      "tp.utils.TpUtils"
+      "io.github.sjouwer.tputils.TpUtils"
     ],
-    "modmenu": [ "tp.utils.config.ModMenuApiImpl" ]
+    "modmenu": [ "io.github.sjouwer.tputils.config.ModMenuApiImpl" ]
   },
 
   "depends": {

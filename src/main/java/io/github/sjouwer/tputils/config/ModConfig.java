@@ -1,4 +1,4 @@
-package tp.utils.config;
+package io.github.sjouwer.tputils.config;
 
 import me.shedaniel.autoconfig.ConfigData;
 import me.shedaniel.autoconfig.annotation.Config;

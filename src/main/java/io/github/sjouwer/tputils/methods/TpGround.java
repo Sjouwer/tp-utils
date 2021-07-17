@@ -1,5 +1,6 @@
-package tp.utils.methods;
+package io.github.sjouwer.tputils.methods;
 
+import io.github.sjouwer.tputils.config.ModConfig;
 import me.shedaniel.autoconfig.AutoConfig;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.BaseText;
@@ -9,7 +10,6 @@ import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.RaycastContext;
-import tp.utils.config.ModConfig;
 
 import static net.minecraft.text.Style.EMPTY;
 
