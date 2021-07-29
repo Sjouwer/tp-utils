@@ -21,10 +21,10 @@
   "environment": "client",
   "entrypoints": {
     "main": [
-      "tp.utils.TpUtils"
+      "io.github.sjouwer.tputils.TpUtils"
     ],
-    "modmenu": [ "tp.utils.config.ModMenuApiImpl" ],
-    "cotton-client-commands": ["tp.utils.Commands"]
+    "modmenu": [ "io.github.sjouwer.tputils.config.ModMenuApiImpl" ],
+    "cotton-client-commands": ["io.github.sjouwer.tputils.Commands"]
 },
 
   "depends": {

@@ -1,9 +1,9 @@
-package tp.utils;
+package io.github.sjouwer.tputils;
 
 import net.fabricmc.api.ModInitializer;
 import me.sargunvohra.mcmods.autoconfig1u.AutoConfig;
 import me.sargunvohra.mcmods.autoconfig1u.serializer.JanksonConfigSerializer;
-import tp.utils.config.ModConfig;
+import io.github.sjouwer.tputils.config.ModConfig;
 
 public class TpUtils implements ModInitializer {
 

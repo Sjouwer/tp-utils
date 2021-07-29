@@ -1,6 +1,6 @@
-package tp.utils.methods;
+package io.github.sjouwer.tputils.methods;
 
-import tp.utils.config.ModConfig;
+import io.github.sjouwer.tputils.config.ModConfig;
 import me.sargunvohra.mcmods.autoconfig1u.AutoConfig;
 import net.minecraft.client.MinecraftClient;
 

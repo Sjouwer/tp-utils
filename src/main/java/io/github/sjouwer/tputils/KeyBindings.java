@@ -1,11 +1,11 @@
-package tp.utils;
+package io.github.sjouwer.tputils;
 
+import io.github.sjouwer.tputils.methods.*;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.options.KeyBinding;
 import net.minecraft.client.util.InputUtil;
 import org.lwjgl.glfw.GLFW;
-import tp.utils.methods.*;
 
 public class KeyBindings {
     private final TpThrough tpThrough = new TpThrough();
@@ -14,7 +14,7 @@ public class KeyBindings {
     private final TpBack tpBack = new TpBack();
     private static final String CATEGORY = "key.categories.tp_utils";
 
-    public void setKeyBindings(){
+    public void setKeyBindings() {
         setKeyBindingTPThrough();
         setKeyBindingTPOnTop();
         setKeyBindingTPForward();

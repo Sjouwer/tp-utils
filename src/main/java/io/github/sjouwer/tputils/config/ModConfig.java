@@ -1,4 +1,4 @@
-package tp.utils.config;
+package io.github.sjouwer.tputils.config;
 
 import me.sargunvohra.mcmods.autoconfig1u.ConfigData;
 import me.sargunvohra.mcmods.autoconfig1u.annotation.Config;
