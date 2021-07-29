@@ -1,4 +1,4 @@
-package tp.utils.config;
+package io.github.sjouwer.tputils.config;
 
 import io.github.prospector.modmenu.api.ConfigScreenFactory;
 import io.github.prospector.modmenu.api.ModMenuApi;

@@ -1,7 +1,7 @@
-package tp.utils;
+package io.github.sjouwer.tputils;
 
 import com.mojang.brigadier.arguments.IntegerArgumentType;
-import tp.utils.methods.*;
+import io.github.sjouwer.tputils.methods.*;
 import com.mojang.brigadier.CommandDispatcher;
 import io.github.cottonmc.clientcommands.*;
 

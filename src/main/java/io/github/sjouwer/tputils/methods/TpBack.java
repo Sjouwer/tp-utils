@@ -1,8 +1,8 @@
-package tp.utils.methods;
+package io.github.sjouwer.tputils.methods;
 
+import io.github.sjouwer.tputils.config.ModConfig;
 import net.minecraft.text.Style;
 import net.minecraft.util.math.BlockPos;
-import tp.utils.config.ModConfig;
 import me.sargunvohra.mcmods.autoconfig1u.AutoConfig;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.BaseText;
@@ -26,7 +26,8 @@ public class TpBack {
             config.setPreviousLocation(minecraft.player.getPos());
             BlockPos blockPos = new BlockPos(coordinates);
             minecraft.player.sendChatMessage(config.tpMethod() + " " + blockPos.getX() + " " + blockPos.getY() + " " + blockPos.getZ());
-        } else {
+        }
+        else {
             BaseText message = new LiteralText("Unable to find a previous location");
             style.setColor(Formatting.DARK_RED);
             message.setStyle(style);

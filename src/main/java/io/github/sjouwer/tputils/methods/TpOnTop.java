@@ -1,8 +1,8 @@
-package tp.utils.methods;
+package io.github.sjouwer.tputils.methods;
 
+import io.github.sjouwer.tputils.config.ModConfig;
+import io.github.sjouwer.tputils.util.BlockCheck;
 import me.sargunvohra.mcmods.autoconfig1u.AutoConfig;
-import tp.utils.config.ModConfig;
-import tp.utils.util.BlockCheck;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.BaseText;
 import net.minecraft.text.LiteralText;
@@ -50,8 +50,7 @@ public class TpOnTop {
                 boolean isBottomBlockFree = !BlockCheck.canCollide(blockPos.add(0, j,0), !config.isLavaAllowed());
                 boolean isTopBlockFree = !BlockCheck.canCollide(new BlockPos(blockPos.add(0,j + 1,0)), !config.isLavaAllowed());
 
-                if (isBottomBlockFree && ( config.isCrawlingAllowed() || isTopBlockFree ))
-                {
+                if (isBottomBlockFree && ( config.isCrawlingAllowed() || isTopBlockFree )) {
                     config.setPreviousLocation(minecraft.player.getPos());config.setPreviousLocation(minecraft.player.getPos());
                     minecraft.player.sendChatMessage(config.tpMethod() + " "  + blockPos.getX() + " " + (blockPos.getY() + j) + " " + blockPos.getZ());
                     return;
