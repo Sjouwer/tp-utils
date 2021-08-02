@@ -29,7 +29,7 @@
     "text.autoconfig.tp_utils.option.setBedrockLimit.@Tooltip": "Stop the mod from teleporting you below bedrock / the bottom world limit",
 
     "text.tp_utils.message.tooMuchWall": "Too much wall. You shall not pass!",
-    "text.tp_utils.message.noWallFound": "Nothing to pass through!",
+    "text.tp_utils.message.noObstacleFound": "Nothing to pass through!",
     "text.tp_utils.message.noBlockFound": "No block in sight (or too far)!",
     "text.tp_utils.message.chunkNotLoaded": "Chunk over there hasn't loaded yet (or render distance too low)!",
     "text.tp_utils.message.lavaBelow" : "There is lava below you!",
