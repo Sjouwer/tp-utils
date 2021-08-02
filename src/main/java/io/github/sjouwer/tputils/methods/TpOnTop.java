@@ -39,7 +39,7 @@ public class TpOnTop {
         blockHit = hit.getPos().add(vector.multiply(0.05));
         blockPos = new BlockPos(blockHit);
 
-        doesWallExist = BlockCheck.canCollide(blockPos, !config.isLavaAllowed());
+        doesWallExist = BlockCheck.canCollide(blockPos, config);
 
         while (!doesWallExist && distance < config.tpOnTopRange()){
             recastRay();
@@ -47,8 +47,8 @@ public class TpOnTop {
 
         if (doesWallExist) {
             for (int j = 1; j < minecraft.world.getHeight()+1; j++) {
-                boolean isBottomBlockFree = !BlockCheck.canCollide(blockPos.add(0, j,0), !config.isLavaAllowed());
-                boolean isTopBlockFree = !BlockCheck.canCollide(new BlockPos(blockPos.add(0,j + 1,0)), !config.isLavaAllowed());
+                boolean isBottomBlockFree = !BlockCheck.canCollide(blockPos.add(0, j,0), config);
+                boolean isTopBlockFree = !BlockCheck.canCollide(new BlockPos(blockPos.add(0,j + 1,0)), config);
 
                 if (isBottomBlockFree && ( config.isCrawlingAllowed() || isTopBlockFree )) {
                     config.setPreviousLocation(minecraft.player.getPos());
@@ -73,6 +73,6 @@ public class TpOnTop {
         blockHit = hit.getPos().add(vector.multiply(0.05));
         blockPos = new BlockPos(blockHit);
 
-        doesWallExist = BlockCheck.canCollide(blockPos, !config.isLavaAllowed());
+        doesWallExist = BlockCheck.canCollide(blockPos, config);
     }
 }

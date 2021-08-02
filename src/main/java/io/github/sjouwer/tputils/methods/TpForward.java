@@ -35,7 +35,7 @@ public class TpForward {
         if (isLoaded) {
             config.setPreviousLocation(minecraft.player.getPos());
 
-            boolean isBottomBlockFree = !BlockCheck.canCollide(blockPos.add(0, -1, 0), !config.isLavaAllowed());
+            boolean isBottomBlockFree = !BlockCheck.canCollide(blockPos.add(0, -1, 0), config);
             if (isBottomBlockFree) {
                 minecraft.player.sendChatMessage(config.tpMethod() + " " + x + " " + (y - 1) + " " + z);
             }

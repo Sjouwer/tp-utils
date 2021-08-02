@@ -39,7 +39,7 @@ public class TpThrough {
         blockHit = hit.getPos().add(vector.multiply(0.05));
         blockPos = new BlockPos(blockHit);
 
-        doesWallExist = BlockCheck.canCollide(blockPos, !config.isLavaAllowed());
+        doesWallExist = BlockCheck.canCollide(blockPos, config);
 
         while (!doesWallExist && distance < config.tpThroughRange()){
             recastRay();
@@ -70,7 +70,7 @@ public class TpThrough {
         blockHit = hit.getPos().add(vector.multiply(0.05));
         blockPos = new BlockPos(blockHit);
 
-        doesWallExist = BlockCheck.canCollide(blockPos, !config.isLavaAllowed());
+        doesWallExist = BlockCheck.canCollide(blockPos, config);
     }
 
     //If the ray cast hits a wall it'll attempt and find a open spot behind the wall.
@@ -79,12 +79,12 @@ public class TpThrough {
             blockHit = blockHit.add(vector.multiply(0.125));
             blockPos = new BlockPos(blockHit);
 
-            doesWallExist = BlockCheck.canCollide(blockPos, !config.isLavaAllowed());
+            doesWallExist = BlockCheck.canCollide(blockPos, config);
             boolean isLoaded = minecraft.world.getChunkManager().isChunkLoaded(blockPos.getX() / 16, blockPos.getZ() / 16);
 
             if (isLoaded && !doesWallExist && (!config.isBedrockLimitSet() || blockPos.getY() > minecraft.world.getBottomY())) {
-                boolean isBottomBlockFree = !BlockCheck.canCollide(blockPos.add(0, -1, 0), !config.isLavaAllowed());
-                boolean isTopBlockFree = !BlockCheck.canCollide(blockPos.add(0,1,0), !config.isLavaAllowed());
+                boolean isBottomBlockFree = !BlockCheck.canCollide(blockPos.add(0, -1, 0), config);
+                boolean isTopBlockFree = !BlockCheck.canCollide(blockPos.add(0,1,0), config);
 
                 if (isBottomBlockFree) {
                     config.setPreviousLocation(minecraft.player.getPos());
