@@ -1,7 +1,7 @@
 package io.github.sjouwer.tputils.methods;
 
 import io.github.sjouwer.tputils.config.ModConfig;
-import io.github.sjouwer.tputils.util.BlockCheck;
+import io.github.sjouwer.tputils.util.*;
 import me.shedaniel.autoconfig.AutoConfig;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.client.MinecraftClient;
@@ -18,41 +18,26 @@ public class TpOnTop {
     private final ModConfig config;
     private static final MinecraftClient minecraft = MinecraftClient.getInstance();
 
-    private double distance;
-    private boolean doesWallExist;
-    private HitResult hit;
-    private Vec3d vector;
-    private Vec3d blockHit;
-    private BlockPos blockPos;
-
     public TpOnTop() {
         config = AutoConfig.getConfigHolder(ModConfig.class).getConfig();
     }
 
     public void tpOnTop() {
-        doesWallExist = false;
-        distance = 0;
+        Vec3d vector = minecraft.cameraEntity.getRotationVec(minecraft.getTickDelta());
+        Vec3d rayStart = minecraft.cameraEntity.getEyePos();
+        Vec3d rayEnd = rayStart.add(vector.multiply(config.tpOnTopRange()));
+        HitResult hit = minecraft.world.raycast(new RaycastContext(rayStart, rayEnd, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, minecraft.player));
 
-        hit = minecraft.cameraEntity.raycast(config.tpOnTopRange(), minecraft.getTickDelta(), false);
-        vector = minecraft.player.getRotationVec(minecraft.getTickDelta());
+        BlockPos blockPos = new BlockPos(hit.getPos().add(vector.multiply(0.05)));
 
-        blockHit = hit.getPos().add(vector.multiply(0.05));
-        blockPos = new BlockPos(blockHit);
-
-        doesWallExist = BlockCheck.canCollide(blockPos, config);
-
-        while (!doesWallExist && distance < config.tpOnTopRange()){
-            recastRay();
-        }
-
-        if (doesWallExist) {
-            for (int j = 1; j < minecraft.world.getHeight()+1; j++) {
+        if (hit.getPos() != rayEnd) {
+            for (int j = 1; j < minecraft.world.getHeight() + 1; j++) {
                 boolean isBottomBlockFree = !BlockCheck.canCollide(blockPos.add(0, j,0), config);
                 boolean isTopBlockFree = !BlockCheck.canCollide(new BlockPos(blockPos.add(0,j + 1,0)), config);
 
                 if (isBottomBlockFree && ( config.isCrawlingAllowed() || isTopBlockFree )) {
-                    config.setPreviousLocation(minecraft.player.getPos());
-                    minecraft.player.sendChatMessage(config.tpMethod() + " "  + blockPos.getX() + " " + (blockPos.getY() + j) + " " + blockPos.getZ());
+                    BlockPos pos = new BlockPos(blockPos.getX(), blockPos.getY() + j, blockPos.getZ());
+                    Teleport.teleportPlayer(pos, config);
                     return;
                 }
             }
@@ -61,18 +46,5 @@ public class TpOnTop {
         BaseText message = new TranslatableText("text.tp_utils.message.noBlockFound");
         message.setStyle(EMPTY.withColor(Formatting.DARK_RED));
         minecraft.player.sendMessage(message, false);
-    }
-
-    //If the ray cast hits a non solid block like grass, it'll redo the ray cast past the grass block.
-    private void recastRay() {
-        distance = minecraft.player.getPos().distanceTo(hit.getPos());
-        Vec3d rayStart = hit.getPos().add(vector.multiply(0.05));
-        Vec3d rayEnd = rayStart.add(vector.multiply(config.tpOnTopRange() - distance));
-        hit = minecraft.world.raycast(new RaycastContext(rayStart, rayEnd, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, minecraft.player));
-
-        blockHit = hit.getPos().add(vector.multiply(0.05));
-        blockPos = new BlockPos(blockHit);
-
-        doesWallExist = BlockCheck.canCollide(blockPos, config);
     }
 }
