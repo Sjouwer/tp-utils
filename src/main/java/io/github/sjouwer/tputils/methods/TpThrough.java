@@ -23,14 +23,11 @@ public class TpThrough {
     }
 
     public void tpThrough() {
-        Vec3d vector = minecraft.cameraEntity.getRotationVec(minecraft.getTickDelta());
-        Vec3d rayStart = minecraft.cameraEntity.getEyePos();
-        Vec3d rayEnd = rayStart.add(vector.multiply(config.tpThroughRange()));
-        HitResult hit = minecraft.world.raycast(new RaycastContext(rayStart, rayEnd, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, minecraft.player));
+        HitResult hit = castRay();
 
         BaseText message;
-        if (hit.getPos() != rayEnd) {
-            BlockPos pos = findOpenSpot(hit, vector);
+        if (hit != null) {
+            BlockPos pos = findOpenSpot(hit);
             if (pos != null) {
                 Teleport.teleportPlayer(pos, config);
                 return;
@@ -45,24 +42,37 @@ public class TpThrough {
         minecraft.player.sendMessage(message, false);
     }
 
+    private HitResult castRay() {
+        Vec3d vector = minecraft.cameraEntity.getRotationVec(minecraft.getTickDelta());
+        Vec3d rayStart = minecraft.cameraEntity.getEyePos();
+        Vec3d rayEnd = rayStart.add(vector.multiply(config.tpThroughRange()));
+        HitResult hit = minecraft.world.raycast(new RaycastContext(rayStart, rayEnd, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, minecraft.player));
+
+        if (hit.getPos() != rayEnd) {
+            return hit;
+        }
+
+        return null;
+    }
+
     //If the ray cast hits an obstacle it'll attempt and find an open spot behind the obstacle.
-    private BlockPos findOpenSpot(HitResult hit, Vec3d vector) {
+    private BlockPos findOpenSpot(HitResult hit) {
         for (int i = 1; i < config.tpThroughRange() * 8; i++) {
-            Vec3d blockHit = hit.getPos().add(vector.multiply(0.125 * i));
-            BlockPos blockPos = new BlockPos(blockHit);
+            Vec3d vector = minecraft.cameraEntity.getRotationVec(minecraft.getTickDelta());
+            BlockPos pos = new BlockPos(hit.getPos().add(vector.multiply(0.125 * i)));
 
-            boolean foundObstacle = BlockCheck.canCollide(blockPos, config);
-            boolean isLoaded = minecraft.world.getChunkManager().isChunkLoaded(blockPos.getX() / 16, blockPos.getZ() / 16);
+            boolean foundObstacle = BlockCheck.canCollide(pos, config);
+            boolean isLoaded = minecraft.world.getChunkManager().isChunkLoaded(pos.getX() / 16, pos.getZ() / 16);
 
-            if (isLoaded && !foundObstacle && (!config.isBedrockLimitSet() || blockPos.getY() > minecraft.world.getBottomY())) {
-                boolean isBottomBlockFree = !BlockCheck.canCollide(blockPos.add(0, -1, 0), config);
-                boolean isTopBlockFree = !BlockCheck.canCollide(blockPos.add(0,1,0), config);
+            if (isLoaded && !foundObstacle && (!config.isBedrockLimitSet() || pos.getY() > minecraft.world.getBottomY())) {
+                boolean isBottomBlockFree = !BlockCheck.canCollide(pos.add(0, -1, 0), config);
+                boolean isTopBlockFree = !BlockCheck.canCollide(pos.add(0,1,0), config);
 
                 if (isBottomBlockFree) {
-                    return new BlockPos(blockPos.getX(), blockPos.getY() - 1, blockPos.getZ());
+                    return new BlockPos(pos.getX(), pos.getY() - 1, pos.getZ());
                 }
                 else if (isTopBlockFree || config.isCrawlingAllowed()) {
-                    return blockPos;
+                    return pos;
                 }
             }
         }
