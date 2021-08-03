@@ -26,9 +26,9 @@ public class TpOnTop {
         BlockPos hit = castRay();
 
         if (hit != null) {
-            BlockPos pos = findOpenSpot(hit);
+            BlockPos pos = findTopSpot(hit);
             if (pos != null) {
-                Teleport.teleportPlayer(pos, config);
+                Teleport.toBlockPos(pos, config);
                 return;
             }
         }
@@ -51,13 +51,13 @@ public class TpOnTop {
         return null;
     }
 
-    private BlockPos findOpenSpot(BlockPos pos) {
+    private BlockPos findTopSpot(BlockPos pos) {
         for (int j = 1; j < minecraft.world.getHeight() + 1; j++) {
-            boolean isBottomBlockFree = !BlockCheck.canCollide(pos.add(0, j,0), config);
-            boolean isTopBlockFree = !BlockCheck.canCollide(new BlockPos(pos.add(0,j + 1,0)), config);
+            boolean isBottomBlockFree = !BlockCheck.canCollide(pos.up(j), config);
+            boolean isTopBlockFree = !BlockCheck.canCollide(pos.up(j + 1), config);
 
-            if (isBottomBlockFree && ( config.isCrawlingAllowed() || isTopBlockFree )) {
-                return new BlockPos(pos.getX(), pos.getY() + j, pos.getZ());
+            if (isBottomBlockFree && (config.isCrawlingAllowed() || isTopBlockFree)) {
+                return pos.up(j);
             }
         }
         return null;

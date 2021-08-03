@@ -27,9 +27,9 @@ public class TpThrough {
 
         BaseText message;
         if (hit != null) {
-            BlockPos pos = findOpenSpot(hit);
+            BlockPos pos = BlockCheck.findOpenSpot(hit, config.tpThroughRange(), 1, config);
             if (pos != null) {
-                Teleport.teleportPlayer(pos, config);
+                Teleport.toBlockPos(pos, config);
                 return;
             }
             message = new TranslatableText("text.tp_utils.message.tooMuchWall");
@@ -52,30 +52,6 @@ public class TpThrough {
             return hit;
         }
 
-        return null;
-    }
-
-    //If the ray cast hits an obstacle it'll attempt and find an open spot behind the obstacle.
-    private BlockPos findOpenSpot(HitResult hit) {
-        for (int i = 1; i < config.tpThroughRange() * 8; i++) {
-            Vec3d vector = minecraft.cameraEntity.getRotationVec(minecraft.getTickDelta());
-            BlockPos pos = new BlockPos(hit.getPos().add(vector.multiply(0.125 * i)));
-
-            boolean foundObstacle = BlockCheck.canCollide(pos, config);
-            boolean isLoaded = minecraft.world.getChunkManager().isChunkLoaded(pos.getX() / 16, pos.getZ() / 16);
-
-            if (isLoaded && !foundObstacle && (!config.isBedrockLimitSet() || pos.getY() > minecraft.world.getBottomY())) {
-                boolean isBottomBlockFree = !BlockCheck.canCollide(pos.add(0, -1, 0), config);
-                boolean isTopBlockFree = !BlockCheck.canCollide(pos.add(0,1,0), config);
-
-                if (isBottomBlockFree) {
-                    return new BlockPos(pos.getX(), pos.getY() - 1, pos.getZ());
-                }
-                else if (isTopBlockFree || config.isCrawlingAllowed()) {
-                    return pos;
-                }
-            }
-        }
         return null;
     }
 }

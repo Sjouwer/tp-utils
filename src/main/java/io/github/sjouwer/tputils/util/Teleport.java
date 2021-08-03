@@ -11,7 +11,7 @@ public final class Teleport {
     private Teleport() {
     }
 
-    public static void teleportPlayer(BlockPos pos, ModConfig config){
+    public static void toBlockPos(BlockPos pos, ModConfig config){
         double x = pos.getX() + 0.5;
         double y = pos.getY();
         double z = pos.getZ() + 0.5;
@@ -20,7 +20,7 @@ public final class Teleport {
         minecraft.player.sendChatMessage(config.tpMethod() + " "  + x + " " + y + " " + z);
     }
 
-    public static void teleportPlayer(Vec3d pos, ModConfig config){
+    public static void toExactPos(Vec3d pos, ModConfig config){
         config.setPreviousLocation(minecraft.player.getPos());
         minecraft.player.sendChatMessage(config.tpMethod() + " "  + pos.getX() + " " + pos.getY() + " " + pos.getZ());
     }

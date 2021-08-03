@@ -1,9 +1,9 @@
 package io.github.sjouwer.tputils.methods;
 
 import io.github.sjouwer.tputils.config.ModConfig;
+import io.github.sjouwer.tputils.util.Teleport;
 import me.shedaniel.autoconfig.AutoConfig;
 import net.minecraft.text.TranslatableText;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.BaseText;
 import net.minecraft.util.Formatting;
@@ -22,9 +22,7 @@ public class TpBack {
     public void tpBack() {
         Vec3d coordinates = config.getPreviousLocation();
         if (coordinates != null) {
-            config.setPreviousLocation(minecraft.player.getPos());
-            BlockPos blockPos = new BlockPos(coordinates);
-            minecraft.player.sendChatMessage(config.tpMethod() + " " + blockPos.getX() + " " + blockPos.getY() + " " + blockPos.getZ());
+            Teleport.toExactPos(coordinates, config);
         }
         else {
             BaseText message = new TranslatableText("text.tp_utils.message.noPreviousLocation");

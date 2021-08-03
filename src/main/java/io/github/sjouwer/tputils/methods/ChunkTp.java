@@ -1,23 +1,22 @@
 package io.github.sjouwer.tputils.methods;
 
 import io.github.sjouwer.tputils.config.ModConfig;
+import io.github.sjouwer.tputils.util.Teleport;
 import me.shedaniel.autoconfig.AutoConfig;
-import net.minecraft.client.MinecraftClient;
+import net.minecraft.util.math.Vec3d;
 
 public class ChunkTp {
     private final ModConfig config;
-    private static final MinecraftClient minecraft = MinecraftClient.getInstance();
 
     public ChunkTp() {
         config = AutoConfig.getConfigHolder(ModConfig.class).getConfig();
     }
 
     public void chunkTp(int x, int y, int z) {
-        int xPos = x * 16 + 8;
-        int yPos = y * 16 + 8;
-        int zPos = z * 16 + 8;
+        double xPos = x * 16 + 8.0;
+        double yPos = y * 16 + 8.0;
+        double zPos = z * 16 + 8.0;
 
-        config.setPreviousLocation(minecraft.player.getPos());
-        minecraft.player.sendChatMessage(config.tpMethod() + " " + xPos + ".0 " + yPos + ".0 " + zPos + ".0");
+        Teleport.toExactPos(new Vec3d(xPos, yPos, zPos), config);
     }
 }

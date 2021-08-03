@@ -33,7 +33,7 @@ public class TpGround {
             message = new TranslatableText("text.tp_utils.message.noGroundFound");
         }
         else {
-            Teleport.teleportPlayer(hit.getPos(), config);
+            Teleport.toExactPos(hit.getPos(), config);
             return;
         }
 
