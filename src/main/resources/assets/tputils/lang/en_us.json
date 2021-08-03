@@ -31,7 +31,8 @@
     "text.tp_utils.message.tooMuchWall": "Too much wall. You shall not pass!",
     "text.tp_utils.message.noObstacleFound": "Nothing to pass through!",
     "text.tp_utils.message.noBlockFound": "No block in sight (or too far)!",
-    "text.tp_utils.message.chunkNotLoaded": "Chunk over there hasn't loaded yet (or render distance too low)!",
+    "text.tp_utils.message.cantMoveForward": "Unable to move any further forward!",
+    "text.tp_utils.message.obstructed": "You're obstructed / inside a block!",
     "text.tp_utils.message.noGroundFound": "There is no ground below you!",
     "text.tp_utils.message.alreadyGrounded": "You're already grounded!",
     "text.tp_utils.message.noPreviousLocation": "Unable to find a previous location"
