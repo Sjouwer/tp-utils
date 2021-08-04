@@ -1,7 +1,7 @@
 package io.github.sjouwer.tputils.methods;
 
 import io.github.sjouwer.tputils.config.ModConfig;
-import io.github.sjouwer.tputils.util.BlockCheck;
+import io.github.sjouwer.tputils.util.*;
 import me.shedaniel.autoconfig.AutoConfig;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.BaseText;
@@ -23,15 +23,7 @@ public class TpGround {
     }
 
     public void tpGround() {
-        BlockPos blockPos = new BlockPos(minecraft.player.getPos());
-        double x = blockPos.getX() + 0.5;
-        double y = Math.min((blockPos.getY() + 1.0), 257.0);
-        double z = blockPos.getZ() + 0.5;
-
-        Vec3d rayStart = new Vec3d(x, y, z);
-        Vec3d rayEnd = new Vec3d(x, 0, z);
-        HitResult hit = minecraft.world.raycast(new RaycastContext(rayStart, rayEnd, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, minecraft.player));
-        boolean isLava = BlockCheck.isLava(new BlockPos(hit.getPos()));
+        HitResult hit = castRay();
 
         BaseText message;
         if (hit.getPos().getY() == minecraft.player.getPos().getY()) {
@@ -40,16 +32,31 @@ public class TpGround {
         else if (hit.getPos().getY() == 0) {
             message = new TranslatableText("text.tp_utils.message.noGroundFound");
         }
-        else if (!config.isLavaAllowed() && isLava) {
-            message = new TranslatableText("text.tp_utils.message.lavaBelow");
-        }
         else {
-            config.setPreviousLocation(minecraft.player.getPos());
-            minecraft.player.sendChatMessage(config.tpMethod() + " " + x + " " + hit.getPos().getY() + " " + z);
+            Teleport.toExactPos(hit.getPos(), config);
             return;
         }
 
         message.setStyle(EMPTY.withColor(Formatting.DARK_RED));
         minecraft.player.sendMessage(message, false);
+    }
+
+    private HitResult castRay() {
+        BlockPos pos = minecraft.cameraEntity.getBlockPos();
+        double x = pos.getX() + 0.5;
+        double y = Math.min(pos.getY(), minecraft.world.getHeight() + 1);
+        double z = pos.getZ() + 0.5;
+
+        Vec3d rayStart = new Vec3d(x, y, z);
+        Vec3d rayEnd = new Vec3d(x, 0, z);
+
+        HitResult hit = minecraft.world.raycast(new RaycastContext(rayStart, rayEnd, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, minecraft.player));
+
+        boolean hitLava = BlockCheck.isLava(new BlockPos(hit.getPos()));
+        if (hitLava && !config.isLavaAllowed()) {
+            hit = minecraft.world.raycast(new RaycastContext(rayStart, rayEnd, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.ANY, minecraft.player));
+        }
+
+        return hit;
     }
 }
