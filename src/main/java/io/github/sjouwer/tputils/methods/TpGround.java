@@ -42,7 +42,7 @@ public class TpGround {
     }
 
     private HitResult castRay() {
-        BlockPos pos = minecraft.cameraEntity.getBlockPos();
+        BlockPos pos = new BlockPos(minecraft.cameraEntity.getCameraPosVec(minecraft.getTickDelta()));
         double x = pos.getX() + 0.5;
         double y = Math.min(pos.getY(), minecraft.world.getHeight() + 1);
         double z = pos.getZ() + 0.5;
