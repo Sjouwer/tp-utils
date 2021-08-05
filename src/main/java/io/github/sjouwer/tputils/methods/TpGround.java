@@ -1,11 +1,12 @@
 package io.github.sjouwer.tputils.methods;
 
 import io.github.sjouwer.tputils.config.ModConfig;
+import io.github.sjouwer.tputils.util.*;
 import me.sargunvohra.mcmods.autoconfig1u.AutoConfig;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.BaseText;
-import net.minecraft.text.LiteralText;
 import net.minecraft.text.Style;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
@@ -23,31 +24,43 @@ public class TpGround {
     }
 
     public void tpGround() {
-        Vec3d rayStart = minecraft.player.getPos().add(0, 1, 0);
-        if (rayStart.getY() > 257) {
-            rayStart = new Vec3d(rayStart.getX(), 257, rayStart.getZ());
-        }
-        Vec3d rayEnd = new Vec3d(rayStart.getX(), 0, rayStart.getZ());
-        HitResult hit = minecraft.world.rayTrace(new RayTraceContext(rayStart, rayEnd, RayTraceContext.ShapeType.COLLIDER, RayTraceContext.FluidHandling.NONE, minecraft.player));
-
-        Vec3d blockHit = hit.getPos().add(0, 0.05, 0);
-        BlockPos blockPos = new BlockPos(blockHit);
+        Vec3d hit = castRay();
 
         BaseText message;
-        if (blockPos.getY() == 0) {
-            message = new LiteralText("There is no ground below you!");
+        if (hit.getY() == minecraft.player.getPos().getY()) {
+            message = new TranslatableText("text.tp_utils.message.alreadyGrounded");
         }
-        else if (blockPos.getY() == minecraft.player.getPos().getY()) {
-            message = new LiteralText("You're already grounded!");
+        else if (hit.getY() == 0) {
+            message = new TranslatableText("text.tp_utils.message.noGroundFound");
         }
         else {
-            config.setPreviousLocation(minecraft.player.getPos());
-            minecraft.player.sendChatMessage(config.tpMethod() + " " + blockPos.getX() + " " + blockPos.getY() + " " + blockPos.getZ());
+            Teleport.toExactPos(hit, config);
             return;
         }
 
         style.setColor(Formatting.DARK_RED);
         message.setStyle(style);
         minecraft.player.sendMessage(message);
+    }
+
+    private Vec3d castRay() {
+        BlockPos pos = new BlockPos(minecraft.cameraEntity.getCameraPosVec(minecraft.getTickDelta()));
+        double x = pos.getX() + 0.5;
+        double y = Math.min(pos.getY(), minecraft.world.getHeight() + 1);
+        double z = pos.getZ() + 0.5;
+
+        Vec3d rayStart = new Vec3d(x, y, z);
+        Vec3d rayEnd = new Vec3d(x, 0, z);
+
+        HitResult hit = minecraft.world.rayTrace(new RayTraceContext(rayStart, rayEnd, RayTraceContext.ShapeType.COLLIDER, RayTraceContext.FluidHandling.NONE, minecraft.player));
+        Vec3d hitPos = hit.getPos();
+
+        boolean hitLava = BlockCheck.isLava(new BlockPos(hit.getPos()));
+        if (hitLava && !config.isLavaAllowed()) {
+            hit = minecraft.world.rayTrace(new RayTraceContext(rayStart, rayEnd, RayTraceContext.ShapeType.COLLIDER, RayTraceContext.FluidHandling.ANY, minecraft.player));
+            hitPos = new Vec3d(hit.getPos().getX(), Math.floor(hit.getPos().getY() + 1), hit.getPos().getZ());
+        }
+
+        return hitPos;
     }
 }

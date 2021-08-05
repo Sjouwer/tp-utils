@@ -1,12 +1,12 @@
 package io.github.sjouwer.tputils.methods;
 
 import io.github.sjouwer.tputils.config.ModConfig;
-import net.minecraft.text.Style;
-import net.minecraft.util.math.BlockPos;
+import io.github.sjouwer.tputils.util.Teleport;
 import me.sargunvohra.mcmods.autoconfig1u.AutoConfig;
+import net.minecraft.text.Style;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.BaseText;
-import net.minecraft.text.LiteralText;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.Vec3d;
 
@@ -23,12 +23,10 @@ public class TpBack {
     public void tpBack() {
         Vec3d coordinates = config.getPreviousLocation();
         if (coordinates != null) {
-            config.setPreviousLocation(minecraft.player.getPos());
-            BlockPos blockPos = new BlockPos(coordinates);
-            minecraft.player.sendChatMessage(config.tpMethod() + " " + blockPos.getX() + " " + blockPos.getY() + " " + blockPos.getZ());
+            Teleport.toExactPos(coordinates, config);
         }
         else {
-            BaseText message = new LiteralText("Unable to find a previous location");
+            BaseText message = new TranslatableText("text.tp_utils.message.noPreviousLocation");
             style.setColor(Formatting.DARK_RED);
             message.setStyle(style);
             minecraft.player.sendMessage(message);
