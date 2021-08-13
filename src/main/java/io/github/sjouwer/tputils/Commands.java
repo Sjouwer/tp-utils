@@ -1,11 +1,11 @@
 package io.github.sjouwer.tputils;
 
-import com.mojang.brigadier.arguments.IntegerArgumentType;
 import io.github.sjouwer.tputils.methods.*;
 import net.fabricmc.fabric.api.client.command.v1.FabricClientCommandSource;
 import com.mojang.brigadier.CommandDispatcher;
 
 import static net.fabricmc.fabric.api.client.command.v1.ClientCommandManager.*;
+import static com.mojang.brigadier.arguments.IntegerArgumentType.*;
 
 public class Commands {
     private final ChunkTp chunkTp = new ChunkTp();
@@ -18,61 +18,54 @@ public class Commands {
     public void registerCommands(CommandDispatcher<FabricClientCommandSource> dispatcher) {
         dispatcher.register(literal("tpu")
                 .then(literal("chunk")
-                        .then(argument("x", IntegerArgumentType.integer())
-                                .then(argument("z", IntegerArgumentType.integer())
+                        .then(argument("x", integer())
+                                .then(argument("z", integer())
                                         .executes(ctx -> {
-                                                    chunkTp.chunkTp(IntegerArgumentType.getInteger(ctx, "x"),
+                                                    chunkTp.chunkTp(getInteger(ctx, "x"),
                                                                     6,
-                                                                    IntegerArgumentType.getInteger(ctx, "z"));
+                                                                    getInteger(ctx, "z"));
                                                     return 1;
                                                 }
-                                        )))));
-        dispatcher.register(literal("tpu")
-                .then(literal("chunk")
-                        .then(argument("x", IntegerArgumentType.integer())
-                                .then(argument("y", IntegerArgumentType.integer())
-                                        .then(argument("z", IntegerArgumentType.integer())
+                                        ))
+
+                                .then(argument("y", integer())
+                                        .then(argument("z", integer())
                                                 .executes(ctx -> {
-                                                            chunkTp.chunkTp(IntegerArgumentType.getInteger(ctx, "x"),
-                                                                            IntegerArgumentType.getInteger(ctx, "y"),
-                                                                            IntegerArgumentType.getInteger(ctx, "z"));
+                                                            chunkTp.chunkTp(getInteger(ctx, "x"),
+                                                                            getInteger(ctx, "y"),
+                                                                            getInteger(ctx, "z"));
                                                             return 1;
                                                         }
-                                                ))))));
+                                                )))))
 
-        dispatcher.register(literal("tpu")
                 .then(literal("through")
                         .executes(ctx -> {
                                     tpThrough.tpThrough();
                                     return 1;
                                 }
-                        )));
+                        ))
 
-        dispatcher.register(literal("tpu")
                 .then(literal("top")
                         .executes(ctx -> {
                                     tpOnTop.tpOnTop();
                                     return 1;
                                 }
-                        )));
+                        ))
 
-        dispatcher.register(literal("tpu")
                 .then(literal("forward")
                         .executes(ctx -> {
                                     tpForward.tpForward();
                                     return 1;
                                 }
-                        )));
+                        ))
 
-        dispatcher.register(literal("tpu")
                 .then(literal("back")
                         .executes(ctx -> {
                                     tpBack.tpBack();
                                     return 1;
                                 }
-                        )));
+                        ))
 
-        dispatcher.register(literal("tpu")
                 .then(literal("ground")
                         .executes(ctx -> {
                                     tpGround.tpGround();
