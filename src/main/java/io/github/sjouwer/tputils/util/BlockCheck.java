@@ -32,7 +32,7 @@ public final class BlockCheck {
 
     //Direction of 1 is forward and -1 is backwards
     public static BlockPos findOpenSpot(HitResult hit, double distance, int direction, ModConfig config) {
-        for (int i = direction; i < distance * 8; i++) {
+        for (int i = Math.max(0, direction); i < distance * 8; i++) {
             Vec3d vector = minecraft.cameraEntity.getRotationVec(minecraft.getTickDelta());
             BlockPos pos = new BlockPos(hit.getPos().add(vector.multiply(direction * 0.125 * i)));
 
