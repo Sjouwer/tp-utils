@@ -12,16 +12,18 @@ public final class Teleport {
     }
 
     public static void toBlockPos(BlockPos pos, ModConfig config){
-        double x = pos.getX() + 0.5;
-        double y = pos.getY();
-        double z = pos.getZ() + 0.5;
-
         config.setPreviousLocation(minecraft.player.getPos());
-        minecraft.player.sendChatMessage(config.tpMethod() + " "  + x + " " + y + " " + z);
+        minecraft.player.sendChatMessage(config.tpMethod() + " "  + pos.getX() + " " + pos.getY() + " " + pos.getZ());
     }
 
     public static void toExactPos(Vec3d pos, ModConfig config){
-        config.setPreviousLocation(minecraft.player.getPos());
-        minecraft.player.sendChatMessage(config.tpMethod() + " "  + pos.getX() + " " + pos.getY() + " " + pos.getZ());
+        if (config.tpMethod().equals("/tp")) {
+            config.setPreviousLocation(minecraft.player.getPos());
+            minecraft.player.sendChatMessage(config.tpMethod() + " "  + pos.getX() + " " + pos.getY() + " " + pos.getZ());
+        }
+        else {
+            BlockPos blockPos = new BlockPos(pos.getX(), Math.ceil(pos.getY()), pos.getZ());
+            toBlockPos(blockPos, config);
+        }
     }
 }
