@@ -58,7 +58,7 @@ public class TpGround {
         boolean hitLava = BlockCheck.isLava(new BlockPos(hit.getPos()));
         if (hitLava && !config.isLavaAllowed()) {
             hit = minecraft.world.rayTrace(new RayTraceContext(rayStart, rayEnd, RayTraceContext.ShapeType.COLLIDER, RayTraceContext.FluidHandling.ANY, minecraft.player));
-            hitPos = new Vec3d(hit.getPos().getX(), Math.floor(hit.getPos().getY() + 1), hit.getPos().getZ());
+            hitPos = new Vec3d(hit.getPos().getX(), Math.ceil(hit.getPos().getY()), hit.getPos().getZ());
         }
 
         return hitPos;
