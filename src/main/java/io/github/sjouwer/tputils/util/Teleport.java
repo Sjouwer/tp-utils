@@ -17,7 +17,7 @@ public final class Teleport {
     }
 
     public static void toExactPos(Vec3d pos, ModConfig config){
-        if (config.tpMethod().equals("/tp")) {
+        if (config.tpMethod().equals("/tp") || config.tpMethod().equals("/minecraft:tp")) {
             config.setPreviousLocation(minecraft.player.getPos());
             minecraft.player.sendChatMessage(config.tpMethod() + " "  + pos.getX() + " " + pos.getY() + " " + pos.getZ());
         }
