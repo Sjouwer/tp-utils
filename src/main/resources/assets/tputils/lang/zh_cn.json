@@ -1,0 +1,39 @@
+{
+    "key.categories.tp_utils": "TP Utils",
+    "key.tp_utils.tp_through": "TP 通过",
+    "key.tp_utils.tp_on_top": "TP on Top",
+    "key.tp_utils.tp_forward": "TP 转发",
+    "key.tp_utils.tp_back": "TP 返回",
+
+    "text.autoconfig.tp_utils.title": "TP Utils 配置",
+
+    "text.autoconfig.tp_utils.option.tpMethod": "TP 方法",
+    "text.autoconfig.tp_utils.option.tpMethod.@Tooltip": "TP 命令，例如 /tp 或 /tppos",
+
+    "text.autoconfig.tp_utils.option.tpThroughRange": "TP 通过范围",
+    "text.autoconfig.tp_utils.option.tpThroughRange.@Tooltip": "mod 应该能够检测到多远的方块到 TP 通过",
+
+    "text.autoconfig.tp_utils.option.tpOnTopRange": "TP On Top Range",
+    "text.autoconfig.tp_utils.option.tpOnTopRange.@Tooltip": "mod 应该能够检测到多远的方块到 TP 上",
+
+    "text.autoconfig.tp_utils.option.tpForwardRange": "TP 转发范围",
+    "text.autoconfig.tp_utils.option.tpForwardRange.@Tooltip": "你将转发的区块数量",
+
+    "text.autoconfig.tp_utils.option.allowCrawling": "允许爬行",
+    "text.autoconfig.tp_utils.option.allowCrawling.@Tooltip": "允许模组将你传送到 1 格高的空间",
+
+    "text.autoconfig.tp_utils.option.allowLava": "允许熔岩",
+    "text.autoconfig.tp_utils.option.allowLava.@Tooltip": "允许模组将你传送到熔岩中",
+
+    "text.autoconfig.tp_utils.option.setBedrockLimit": "设置基岩限制",
+    "text.autoconfig.tp_utils.option.setBedrockLimit.@Tooltip": "阻止模组将你传送到基岩/世界底部极限以下",
+
+    "text.tp_utils.message.tooMuchWall": "墙太多了，你过不去！",
+    "text.tp_utils.message.noObstacleFound": "什么都不能通过！",
+    "text.tp_utils.message.noBlockFound": "没有障碍物（或太远）！",
+    "text.tp_utils.message.cantMoveForward": "无法继续前进！",
+    "text.tp_utils.message.obstructed": "你被挡住了/在一个街区内！",
+    "text.tp_utils.message.noGroundFound": "你下面没有地面！",
+    "text.tp_utils.message.alreadyGrounded": "你已经接地了！",
+    "text.tp_utils.message.noPreviousLocation": "无法找到以前的位置"
+}
