@@ -30,10 +30,23 @@
     "modmenu": [ "io.github.sjouwer.tputils.config.ModMenuApiImpl" ]
   },
 
+  "custom": {
+    "modmanager": {
+      "modrinth": "vCk0Q3ZG"
+    },
+    "modmenu": {
+      "updates": {
+        "provider": "modrinth",
+        "projectId": "vCk0Q3ZG",
+        "channel": "release"
+      }
+    }
+  },
+
   "depends": {
     "minecraft": "1.18.x",
-    "fabricloader": ">=0.11.7",
+    "fabricloader": ">=0.12.0",
     "fabric": ">=0.40.3",
-    "cloth-config2": ">=6.0.0"
+    "cloth-config": ">=6.0.0"
   }
 }
