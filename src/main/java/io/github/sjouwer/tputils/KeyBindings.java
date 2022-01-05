@@ -1,6 +1,5 @@
 package io.github.sjouwer.tputils;
 
-import io.github.sjouwer.tputils.methods.*;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.option.KeyBinding;
@@ -8,10 +7,7 @@ import net.minecraft.client.util.InputUtil;
 import org.lwjgl.glfw.GLFW;
 
 public class KeyBindings {
-    private final TpThrough tpThrough = new TpThrough();
-    private final TpOnTop tpOnTop = new TpOnTop();
-    private final TpForward tpForward = new TpForward();
-    private final TpBack tpBack = new TpBack();
+    private final Teleports teleports = new Teleports();
     private static final String CATEGORY = "key.categories.tp_utils";
 
     public void setKeyBindings() {
@@ -27,7 +23,7 @@ public class KeyBindings {
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             while (tpThroughKey.wasPressed()) {
-                tpThrough.tpThrough();
+                teleports.tpThrough();
             }
         });
     }
@@ -38,7 +34,7 @@ public class KeyBindings {
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             while (tpOnTopKey.wasPressed()) {
-                tpOnTop.tpOnTop();
+                teleports.tpOnTop();
             }
         });
     }
@@ -49,7 +45,7 @@ public class KeyBindings {
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             while (tpForwardKey.wasPressed()) {
-                tpForward.tpForward();
+                teleports.tpForward();
             }
         });
     }
@@ -60,7 +56,7 @@ public class KeyBindings {
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             while (tpBackKey.wasPressed()) {
-                tpBack.tpBack();
+                teleports.tpBack();
             }
         });
     }

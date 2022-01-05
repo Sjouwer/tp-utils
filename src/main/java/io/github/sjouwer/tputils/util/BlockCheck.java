@@ -15,8 +15,8 @@ public final class BlockCheck {
     private BlockCheck() {
     }
 
-    public static boolean canCollide(BlockPos pos, ModConfig config) {
-        if (!config.isLavaAllowed() && isLava(pos)) {
+    public static boolean canCollide(BlockPos pos, boolean isLavaAllowed) {
+        if (!isLavaAllowed && isLava(pos)) {
             return true;
         }
         BlockState state = minecraft.world.getBlockState(pos);
@@ -36,12 +36,12 @@ public final class BlockCheck {
             Vec3d vector = minecraft.cameraEntity.getRotationVec(minecraft.getTickDelta());
             BlockPos pos = new BlockPos(hit.getPos().add(vector.multiply(direction * 0.125 * i)));
 
-            boolean foundObstacle = canCollide(pos, config);
+            boolean foundObstacle = canCollide(pos, config.isLavaAllowed());
             boolean isLoaded = minecraft.world.getChunkManager().isChunkLoaded(pos.getX() / 16, pos.getZ() / 16);
 
             if (isLoaded && !foundObstacle && (!config.isBedrockLimitSet() || pos.getY() > minecraft.world.getBottomY())) {
-                boolean isBottomBlockFree = !canCollide(pos.down(1), config);
-                boolean isTopBlockFree = !canCollide(pos.up(1), config);
+                boolean isBottomBlockFree = !canCollide(pos.down(1), config.isLavaAllowed());
+                boolean isTopBlockFree = !canCollide(pos.up(1), config.isLavaAllowed());
 
                 if (isBottomBlockFree) {
                     return pos.down(1);
@@ -49,6 +49,18 @@ public final class BlockCheck {
                 else if (isTopBlockFree || config.isCrawlingAllowed()) {
                     return pos;
                 }
+            }
+        }
+        return null;
+    }
+
+    public static BlockPos findTopSpot(BlockPos pos, boolean isLavaAllowed, boolean isCrawlingAllowed) {
+        for (int j = 1; j < minecraft.world.getHeight() + 1; j++) {
+            boolean isBottomBlockFree = !BlockCheck.canCollide(pos.up(j), isLavaAllowed);
+            boolean isTopBlockFree = !BlockCheck.canCollide(pos.up(j + 1), isLavaAllowed);
+
+            if (isBottomBlockFree && (isCrawlingAllowed || isTopBlockFree)) {
+                return pos.up(j);
             }
         }
         return null;
