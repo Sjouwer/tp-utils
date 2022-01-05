@@ -30,7 +30,13 @@ public final class BlockCheck {
         return state.getMaterial() == Material.LAVA;
     }
 
-    //Direction of 1 is forward and -1 is backwards
+    /**
+     * @param hit Hit from raycast
+     * @param distance Distance to check
+     * @param direction Forwards at 1, backwards at -1
+     * @param config All mod settings
+     * @return Open and safe spot to tp to
+     */
     public static BlockPos findOpenSpot(HitResult hit, double distance, int direction, ModConfig config) {
         for (int i = Math.max(0, direction); i < distance * 8; i++) {
             Vec3d vector = minecraft.cameraEntity.getRotationVec(minecraft.getTickDelta());
