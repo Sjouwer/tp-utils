@@ -120,12 +120,12 @@ public class Teleports {
         tpToExactPos(new Vec3d(xPos, yPos, zPos), config);
     }
 
-    private static void tpToBlockPos(BlockPos pos, ModConfig config){
+    private void tpToBlockPos(BlockPos pos, ModConfig config){
         config.setPreviousLocation(minecraft.player.getPos());
         minecraft.player.sendChatMessage(config.tpMethod() + " "  + pos.getX() + " " + pos.getY() + " " + pos.getZ());
     }
 
-    private static void tpToExactPos(Vec3d pos, ModConfig config){
+    private void tpToExactPos(Vec3d pos, ModConfig config){
         if (config.tpMethod().equals("/tp") || config.tpMethod().equals("/minecraft:tp")) {
             config.setPreviousLocation(minecraft.player.getPos());
             minecraft.player.sendChatMessage(config.tpMethod() + " "  + pos.getX() + " " + pos.getY() + " " + pos.getZ());
