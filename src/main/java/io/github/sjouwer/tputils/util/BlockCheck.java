@@ -38,8 +38,8 @@ public final class BlockCheck {
      * @return Open and safe spot to tp to
      */
     public static BlockPos findOpenSpot(HitResult hit, double distance, int direction, ModConfig config) {
+        Vec3d vector = minecraft.cameraEntity.getRotationVec(minecraft.getTickDelta());
         for (int i = Math.max(0, direction); i < distance * 8; i++) {
-            Vec3d vector = minecraft.cameraEntity.getRotationVec(minecraft.getTickDelta());
             BlockPos pos = new BlockPos(hit.getPos().add(vector.multiply(direction * 0.125 * i)));
 
             boolean foundObstacle = canCollide(pos, config.isLavaAllowed());

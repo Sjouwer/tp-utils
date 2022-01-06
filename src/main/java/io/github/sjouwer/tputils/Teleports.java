@@ -25,7 +25,7 @@ public class Teleports {
         HitResult hit = Raycast.forwardFromPlayer(config.tpThroughRange());
 
         BaseText message;
-        if (hit != null) {
+        if (hit.getType() == HitResult.Type.BLOCK) {
             BlockPos pos = BlockCheck.findOpenSpot(hit, config.tpThroughRange(), 1, config);
             if (pos != null) {
                 tpToBlockPos(pos);
@@ -82,7 +82,7 @@ public class Teleports {
         if (hit.getPos().getY() == minecraft.player.getPos().getY()) {
             message = new TranslatableText("text.tp_utils.message.alreadyGrounded");
         }
-        else if (hit.getPos().getY() == 0) {
+        else if (hit.getPos().getY() == minecraft.world.getBottomY()) {
             message = new TranslatableText("text.tp_utils.message.noGroundFound");
         }
         else {
