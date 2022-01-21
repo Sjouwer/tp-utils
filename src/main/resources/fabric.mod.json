@@ -9,6 +9,10 @@
     "Sjouwer",
     "Kyzeragon"
   ],
+  "contributors": [
+    "zh-cn: buiawpkgew1"
+  ],
+
   "contact": {
     "homepage": "https://www.curseforge.com/minecraft/mc-mods/tp-utils",
     "sources": "https://github.com/Sjouwer/tp-utils",
@@ -24,6 +28,19 @@
       "io.github.sjouwer.tputils.TpUtils"
     ],
     "modmenu": [ "io.github.sjouwer.tputils.config.ModMenuApiImpl" ]
+  },
+
+  "custom": {
+    "modmanager": {
+      "modrinth": "vCk0Q3ZG"
+    },
+    "modmenu": {
+      "updates": {
+        "provider": "modrinth",
+        "projectId": "vCk0Q3ZG",
+        "channel": "release"
+      }
+    }
   },
 
   "depends": {
