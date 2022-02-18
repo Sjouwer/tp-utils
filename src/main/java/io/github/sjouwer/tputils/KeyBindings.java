@@ -34,7 +34,7 @@ public class KeyBindings {
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             while (tpOnTopKey.wasPressed()) {
-                teleports.tpOnTop();
+                teleports.tpOnTop(null);
             }
         });
     }

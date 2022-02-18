@@ -12,6 +12,10 @@ public final class Chat {
     private Chat() {
     }
 
+    /**
+     * Function to send a message in dark red color to the player's chatbox
+     * @param message Message to send
+     */
     public static void sendError(BaseText message) {
         message.setStyle(EMPTY.withColor(Formatting.DARK_RED));
         minecraft.player.sendMessage(message, false);

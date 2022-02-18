@@ -33,7 +33,10 @@
     "text.tp_utils.message.noBlockFound": "No block in sight (or too far)!",
     "text.tp_utils.message.cantMoveForward": "Unable to move any further forward!",
     "text.tp_utils.message.obstructed": "You're obstructed / inside a block!",
-    "text.tp_utils.message.noGroundFound": "There is no ground below you!",
+    "text.tp_utils.message.noGroundFound": "There is no ground below!",
     "text.tp_utils.message.alreadyGrounded": "You're already grounded!",
+    "text.tp_utils.message.noOpenSpaceBelow": "There is no open space below the ground / current floor!",
+    "text.tp_utils.message.nothingBelow": "There is nothing below you!",
+    "text.tp_utils.message.nothingAbove": "There is nothing above you!",
     "text.tp_utils.message.noPreviousLocation": "Unable to find a previous location"
 }
