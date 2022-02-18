@@ -26,7 +26,7 @@ public class Teleports {
 
         BaseText message;
         if (hit.getType() == HitResult.Type.BLOCK) {
-            BlockPos pos = BlockCheck.findOpenSpot(hit, config.tpThroughRange(), 1, config);
+            BlockPos pos = BlockCheck.findOpenSpotForwards(hit, config.tpThroughRange(), config);
             if (pos != null) {
                 tpToBlockPos(pos);
                 return;
@@ -40,11 +40,14 @@ public class Teleports {
         Chat.sendError(message);
     }
 
-    public void tpOnTop() {
-        HitResult hit = Raycast.forwardFromPlayer(config.tpOnTopRange());
+    public void tpOnTop(HitResult hit) {
+        if (hit == null) {
+            hit = Raycast.forwardFromPlayer(config.tpOnTopRange());
+        }
+
         if (hit.getType() == HitResult.Type.BLOCK) {
             BlockPos hitPos = ((BlockHitResult)hit).getBlockPos();
-            BlockPos tpPos = BlockCheck.findTopSpot(hitPos, config.isLavaAllowed(), config.isCrawlingAllowed());
+            BlockPos tpPos = BlockCheck.findTopOpenSpot(hitPos, config.isLavaAllowed(), config.isCrawlingAllowed());
             if (tpPos != null) {
                 tpToBlockPos(tpPos);
                 return;
@@ -57,7 +60,7 @@ public class Teleports {
     public void tpForward() {
         HitResult hit = Raycast.forwardFromPlayer(config.tpForwardRange());
         double distance = minecraft.cameraEntity.getEyePos().distanceTo(hit.getPos());
-        BlockPos pos = BlockCheck.findOpenSpot(hit, distance, -1, config);
+        BlockPos pos = BlockCheck.findOpenSpotBackwards(hit, distance, config);
 
         BaseText message;
         if (pos != null) {
@@ -75,8 +78,10 @@ public class Teleports {
         Chat.sendError(message);
     }
 
-    public void tpGround() {
-        HitResult hit = Raycast.downwardFromPlayer(config.isLavaAllowed());
+    public void tpGround(HitResult hit) {
+        if (hit == null) {
+            hit = Raycast.downwardFromPlayer(config.isLavaAllowed());
+        }
 
         BaseText message;
         if (hit.getPos().getY() == minecraft.player.getPos().getY()) {
@@ -88,6 +93,37 @@ public class Teleports {
         else {
             tpToExactPos(hit.getPos());
             return;
+        }
+
+        Chat.sendError(message);
+    }
+
+    public void tpUp() {
+        HitResult hit = Raycast.upwardFromPlayer();
+        if (hit.getPos().y < minecraft.world.getHeight()){
+            tpOnTop(hit);
+            return;
+        }
+
+        Chat.sendError(new TranslatableText("text.tp_utils.message.nothingAbove"));
+    }
+
+    public void tpDown() {
+        HitResult hit = Raycast.downwardFromPlayer(false);
+
+        BaseText message;
+        if (hit.getType() == HitResult.Type.BLOCK) {
+            BlockPos hitPos = ((BlockHitResult)hit).getBlockPos();
+            BlockPos bottomPos = BlockCheck.findBottomOpenSpot(hitPos, config.isLavaAllowed(), config.isCrawlingAllowed());
+            if (bottomPos != null && bottomPos.getY() > minecraft.world.getBottomY()) {
+                hit = Raycast.downwardFromPos(bottomPos, false);
+                tpGround(hit);
+                return;
+            }
+            message = new TranslatableText("text.tp_utils.message.noOpenSpaceBelow");
+        }
+        else {
+            message = new TranslatableText("text.tp_utils.message.nothingBelow");
         }
 
         Chat.sendError(message);

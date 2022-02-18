@@ -41,7 +41,21 @@ public class Commands {
 
                 .then(literal("top")
                         .executes(ctx -> {
-                                    teleports.tpOnTop();
+                                    teleports.tpOnTop(null);
+                                    return 1;
+                                }
+                        ))
+
+                .then(literal("up")
+                        .executes(ctx -> {
+                                    teleports.tpUp();
+                                    return 1;
+                                }
+                        ))
+
+                .then(literal("down")
+                        .executes(ctx -> {
+                                    teleports.tpDown();
                                     return 1;
                                 }
                         ))
@@ -62,7 +76,7 @@ public class Commands {
 
                 .then(literal("ground")
                         .executes(ctx -> {
-                                    teleports.tpGround();
+                                    teleports.tpGround(null);
                                     return 1;
                                 }
                         )));
