@@ -1,6 +1,6 @@
 ![icon-small](https://user-images.githubusercontent.com/84018133/117811201-9026d280-b260-11eb-9363-6e344db93bc3.png)
 
-This is a teleport utility mod that should greatly benefit creative players, making it much easier to get around. It includes but is not limited to highly improved and custom versions of the WE compass teleports (/thru & /jumpto). This mod uses Ray Casting to determine the block you’re looking at from a great distance and with extreme precision. 
+This is a teleport utility mod that should greatly benefit creative players, making it much easier to get around. It includes but is not limited to highly improved and custom versions of the WE compass teleports (/thru & /jumpto). The teleports have a super high range and are extremely precise.  
 
 ## **Functions**
 
@@ -20,8 +20,12 @@ Teleport a certain amount of blocks into the direction you’re looking, includi
 *Usage: /tpu ground*  
 Teleport to first block below you, no matter the height you're at.
 
+**TP Up & Down**  
+*Usage: /tpu up or /tpu down*  
+Teloport a floor up or down, it'll always put you on the ground.
+
 **Chunk TP**  
-*Usage: /tpu chunk \<x> \<z>*  
+*Usage: /tpu chunk \<x> \<z> or /tpu chunk \<x> \<y> \<z>*  
 Teleport to the coordinates of the entered chunk.
 
 **TP Back**  
