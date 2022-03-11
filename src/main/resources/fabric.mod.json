@@ -24,10 +24,12 @@
 
   "environment": "client",
   "entrypoints": {
-    "main": [
+    "client": [
       "io.github.sjouwer.tputils.TpUtils"
     ],
-    "modmenu": [ "io.github.sjouwer.tputils.config.ModMenuApiImpl" ]
+    "modmenu": [
+      "io.github.sjouwer.tputils.config.ModMenuApiImpl"
+    ]
   },
 
   "custom": {

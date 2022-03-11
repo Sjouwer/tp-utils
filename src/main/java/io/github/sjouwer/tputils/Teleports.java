@@ -4,7 +4,6 @@ import io.github.sjouwer.tputils.config.ModConfig;
 import io.github.sjouwer.tputils.util.BlockCheck;
 import io.github.sjouwer.tputils.util.Chat;
 import io.github.sjouwer.tputils.util.Raycast;
-import me.shedaniel.autoconfig.AutoConfig;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.BaseText;
 import net.minecraft.text.TranslatableText;
@@ -14,19 +13,15 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 
 public class Teleports {
-    private final ModConfig config;
-    private static final MinecraftClient minecraft = MinecraftClient.getInstance();
-
-    public Teleports() {
-        config = AutoConfig.getConfigHolder(ModConfig.class).getConfig();
-    }
+    private static final MinecraftClient client = MinecraftClient.getInstance();
+    private static final ModConfig config = TpUtils.getConfig();
 
     public void tpThrough() {
         HitResult hit = Raycast.forwardFromPlayer(config.tpThroughRange());
 
         BaseText message;
         if (hit.getType() == HitResult.Type.BLOCK) {
-            BlockPos pos = BlockCheck.findOpenSpotForwards(hit, config.tpThroughRange(), config);
+            BlockPos pos = BlockCheck.findOpenSpotForwards(hit, config.tpThroughRange());
             if (pos != null) {
                 tpToBlockPos(pos);
                 return;
@@ -47,7 +42,7 @@ public class Teleports {
 
         if (hit.getType() == HitResult.Type.BLOCK) {
             BlockPos hitPos = ((BlockHitResult)hit).getBlockPos();
-            BlockPos tpPos = BlockCheck.findTopOpenSpot(hitPos, config.isLavaAllowed(), config.isCrawlingAllowed());
+            BlockPos tpPos = BlockCheck.findTopOpenSpot(hitPos);
             if (tpPos != null) {
                 tpToBlockPos(tpPos);
                 return;
@@ -59,12 +54,12 @@ public class Teleports {
 
     public void tpForward() {
         HitResult hit = Raycast.forwardFromPlayer(config.tpForwardRange());
-        double distance = minecraft.cameraEntity.getEyePos().distanceTo(hit.getPos());
-        BlockPos pos = BlockCheck.findOpenSpotBackwards(hit, distance, config);
+        double distance = client.cameraEntity.getEyePos().distanceTo(hit.getPos());
+        BlockPos pos = BlockCheck.findOpenSpotBackwards(hit, distance);
 
         BaseText message;
         if (pos != null) {
-            BlockPos playerPos = new BlockPos(minecraft.player.getPos());
+            BlockPos playerPos = new BlockPos(client.player.getPos());
             if (!pos.equals(playerPos)) {
                 tpToBlockPos(pos);
                 return;
@@ -84,10 +79,10 @@ public class Teleports {
         }
 
         BaseText message;
-        if (hit.getPos().getY() == minecraft.player.getPos().getY()) {
+        if (hit.getPos().getY() == client.player.getPos().getY()) {
             message = new TranslatableText("text.tp_utils.message.alreadyGrounded");
         }
-        else if (hit.getPos().getY() == minecraft.world.getBottomY()) {
+        else if (hit.getPos().getY() == client.world.getBottomY()) {
             message = new TranslatableText("text.tp_utils.message.noGroundFound");
         }
         else {
@@ -100,7 +95,7 @@ public class Teleports {
 
     public void tpUp() {
         HitResult hit = Raycast.upwardFromPlayer();
-        if (hit.getPos().y < minecraft.world.getHeight()){
+        if (hit.getPos().y < client.world.getHeight()){
             tpOnTop(hit);
             return;
         }
@@ -114,8 +109,8 @@ public class Teleports {
         BaseText message;
         if (hit.getType() == HitResult.Type.BLOCK) {
             BlockPos hitPos = ((BlockHitResult)hit).getBlockPos();
-            BlockPos bottomPos = BlockCheck.findBottomOpenSpot(hitPos, config.isLavaAllowed(), config.isCrawlingAllowed());
-            if (bottomPos != null && bottomPos.getY() > minecraft.world.getBottomY()) {
+            BlockPos bottomPos = BlockCheck.findBottomOpenSpot(hitPos);
+            if (bottomPos != null && bottomPos.getY() > client.world.getBottomY()) {
                 hit = Raycast.downwardFromPos(bottomPos, false);
                 tpGround(hit);
                 return;
@@ -148,14 +143,14 @@ public class Teleports {
     }
 
     private void tpToBlockPos(BlockPos pos){
-        config.setPreviousLocation(minecraft.player.getPos());
-        minecraft.player.sendChatMessage(config.tpMethod() + " "  + pos.getX() + " " + pos.getY() + " " + pos.getZ());
+        config.setPreviousLocation(client.player.getPos());
+        client.player.sendChatMessage(config.tpMethod() + " "  + pos.getX() + " " + pos.getY() + " " + pos.getZ());
     }
 
     private void tpToExactPos(Vec3d pos){
         if (config.tpMethod().equals("/tp") || config.tpMethod().equals("/minecraft:tp")) {
-            config.setPreviousLocation(minecraft.player.getPos());
-            minecraft.player.sendChatMessage(config.tpMethod() + " "  + pos.getX() + " " + pos.getY() + " " + pos.getZ());
+            config.setPreviousLocation(client.player.getPos());
+            client.player.sendChatMessage(config.tpMethod() + " "  + pos.getX() + " " + pos.getY() + " " + pos.getZ());
         }
         else {
             BlockPos blockPos = new BlockPos(pos.getX(), Math.ceil(pos.getY()), pos.getZ());
