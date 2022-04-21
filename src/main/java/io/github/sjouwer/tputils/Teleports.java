@@ -5,7 +5,6 @@ import io.github.sjouwer.tputils.util.BlockCheck;
 import io.github.sjouwer.tputils.util.Chat;
 import io.github.sjouwer.tputils.util.Raycast;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.text.BaseText;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
@@ -19,7 +18,7 @@ public class Teleports {
     public void tpThrough() {
         HitResult hit = Raycast.forwardFromPlayer(config.tpThroughRange());
 
-        BaseText message;
+        TranslatableText message;
         if (hit.getType() == HitResult.Type.BLOCK) {
             BlockPos pos = BlockCheck.findOpenSpotForwards(hit, config.tpThroughRange());
             if (pos != null) {
@@ -57,7 +56,7 @@ public class Teleports {
         double distance = client.cameraEntity.getEyePos().distanceTo(hit.getPos());
         BlockPos pos = BlockCheck.findOpenSpotBackwards(hit, distance);
 
-        BaseText message;
+        TranslatableText message;
         if (pos != null) {
             BlockPos playerPos = new BlockPos(client.player.getPos());
             if (!pos.equals(playerPos)) {
@@ -78,7 +77,7 @@ public class Teleports {
             hit = Raycast.downwardFromPlayer(config.isLavaAllowed());
         }
 
-        BaseText message;
+        TranslatableText message;
         if (hit.getPos().getY() == client.player.getPos().getY()) {
             message = new TranslatableText("text.tp_utils.message.alreadyGrounded");
         }
@@ -106,7 +105,7 @@ public class Teleports {
     public void tpDown() {
         HitResult hit = Raycast.downwardFromPlayer(false);
 
-        BaseText message;
+        TranslatableText message;
         if (hit.getType() == HitResult.Type.BLOCK) {
             BlockPos hitPos = ((BlockHitResult)hit).getBlockPos();
             BlockPos bottomPos = BlockCheck.findBottomOpenSpot(hitPos);
