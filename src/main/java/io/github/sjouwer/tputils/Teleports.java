@@ -5,7 +5,7 @@ import io.github.sjouwer.tputils.util.BlockCheck;
 import io.github.sjouwer.tputils.util.Chat;
 import io.github.sjouwer.tputils.util.Raycast;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.text.TranslatableTextContent;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
@@ -18,17 +18,17 @@ public class Teleports {
     public void tpThrough() {
         HitResult hit = Raycast.forwardFromPlayer(config.tpThroughRange());
 
-        TranslatableText message;
+        TranslatableTextContent message;
         if (hit.getType() == HitResult.Type.BLOCK) {
             BlockPos pos = BlockCheck.findOpenSpotForwards(hit, config.tpThroughRange());
             if (pos != null) {
                 tpToBlockPos(pos);
                 return;
             }
-            message = new TranslatableText("text.tp_utils.message.tooMuchWall");
+            message = new TranslatableTextContent("text.tp_utils.message.tooMuchWall");
         }
         else {
-            message = new TranslatableText("text.tp_utils.message.noObstacleFound");
+            message = new TranslatableTextContent("text.tp_utils.message.noObstacleFound");
         }
 
         Chat.sendError(message);
@@ -48,7 +48,7 @@ public class Teleports {
             }
         }
 
-        Chat.sendError(new TranslatableText("text.tp_utils.message.noBlockFound"));
+        Chat.sendError(new TranslatableTextContent("text.tp_utils.message.noBlockFound"));
     }
 
     public void tpForward() {
@@ -56,17 +56,17 @@ public class Teleports {
         double distance = client.cameraEntity.getEyePos().distanceTo(hit.getPos());
         BlockPos pos = BlockCheck.findOpenSpotBackwards(hit, distance);
 
-        TranslatableText message;
+        TranslatableTextContent message;
         if (pos != null) {
             BlockPos playerPos = new BlockPos(client.player.getPos());
             if (!pos.equals(playerPos)) {
                 tpToBlockPos(pos);
                 return;
             }
-            message = new TranslatableText("text.tp_utils.message.cantMoveForward");
+            message = new TranslatableTextContent("text.tp_utils.message.cantMoveForward");
         }
         else {
-            message = new TranslatableText("text.tp_utils.message.obstructed");
+            message = new TranslatableTextContent("text.tp_utils.message.obstructed");
         }
 
         Chat.sendError(message);
@@ -77,12 +77,12 @@ public class Teleports {
             hit = Raycast.downwardFromPlayer(config.isLavaAllowed());
         }
 
-        TranslatableText message;
+        TranslatableTextContent message;
         if (hit.getPos().getY() == client.player.getPos().getY()) {
-            message = new TranslatableText("text.tp_utils.message.alreadyGrounded");
+            message = new TranslatableTextContent("text.tp_utils.message.alreadyGrounded");
         }
         else if (hit.getPos().getY() == client.world.getBottomY()) {
-            message = new TranslatableText("text.tp_utils.message.noGroundFound");
+            message = new TranslatableTextContent("text.tp_utils.message.noGroundFound");
         }
         else {
             tpToExactPos(hit.getPos());
@@ -99,13 +99,13 @@ public class Teleports {
             return;
         }
 
-        Chat.sendError(new TranslatableText("text.tp_utils.message.nothingAbove"));
+        Chat.sendError(new TranslatableTextContent("text.tp_utils.message.nothingAbove"));
     }
 
     public void tpDown() {
         HitResult hit = Raycast.downwardFromPlayer(false);
 
-        TranslatableText message;
+        TranslatableTextContent message;
         if (hit.getType() == HitResult.Type.BLOCK) {
             BlockPos hitPos = ((BlockHitResult)hit).getBlockPos();
             BlockPos bottomPos = BlockCheck.findBottomOpenSpot(hitPos);
@@ -114,10 +114,10 @@ public class Teleports {
                 tpGround(hit);
                 return;
             }
-            message = new TranslatableText("text.tp_utils.message.noOpenSpaceBelow");
+            message = new TranslatableTextContent("text.tp_utils.message.noOpenSpaceBelow");
         }
         else {
-            message = new TranslatableText("text.tp_utils.message.nothingBelow");
+            message = new TranslatableTextContent("text.tp_utils.message.nothingBelow");
         }
 
         Chat.sendError(message);
@@ -129,7 +129,7 @@ public class Teleports {
             tpToExactPos(coordinates);
         }
         else {
-            Chat.sendError(new TranslatableText("text.tp_utils.message.noPreviousLocation"));
+            Chat.sendError(new TranslatableTextContent("text.tp_utils.message.noPreviousLocation"));
         }
     }
 
