@@ -22,7 +22,7 @@ Teleport to first block below you, no matter the height you're at.
 
 **TP Up & Down**  
 *Usage: /tpu up or /tpu down*  
-Teloport a floor up or down, it'll always put you on the ground.
+Teleport a floor up or down, it'll always put you on the ground.
 
 **Chunk TP**  
 *Usage: /tpu chunk \<x> \<z> or /tpu chunk \<x> \<y> \<z>*  
@@ -64,12 +64,10 @@ Allow the mod to teleport you into lava.
 Stop the mod from teleporting you below bedrock / the bottom world limit.
 
 ## **Dependencies**
-
-**Included:**  
-[Cloth Config API Fabric](https://github.com/shedaniel/cloth-config) (Is required to make the config work)
  		
 **Required**:  
-[Fabric API](https://github.com/FabricMC/fabric)
+[Fabric API](https://github.com/FabricMC/fabric)  
+[Cloth Config API](https://github.com/shedaniel/cloth-config) (Is required to make the config work)
 
 **Optional:**  
 [Mod Menu](https://github.com/TerraformersMC/ModMenu) (This mod allows you to edit the configs in game)
