@@ -26,6 +26,9 @@ public class ModConfig implements ConfigData {
     private Vec3d previousLocation;
 
     public String tpMethod() {
+        if (tpMethod.charAt(0) == '/') {
+            return tpMethod.substring(1);
+        }
         return tpMethod;
     }
 

@@ -144,13 +144,13 @@ public class Teleports {
 
     private void tpToBlockPos(BlockPos pos) {
         config.setPreviousLocation(client.player.getPos());
-        client.player.method_44099(config.tpMethod() + " " + pos.getX() + " " + pos.getY() + " " + pos.getZ());
+        client.player.sendCommand(config.tpMethod() + " " + pos.getX() + " " + pos.getY() + " " + pos.getZ());
     }
 
     private void tpToExactPos(Vec3d pos) {
-        if (config.tpMethod().equals("/tp") || config.tpMethod().equals("/minecraft:tp")) {
+        if (config.tpMethod().equals("tp") || config.tpMethod().equals("minecraft:tp")) {
             config.setPreviousLocation(client.player.getPos());
-            client.player.method_44099(config.tpMethod() + " " + pos.getX() + " " + pos.getY() + " " + pos.getZ());
+            client.player.sendCommand(config.tpMethod() + " " + pos.getX() + " " + pos.getY() + " " + pos.getZ());
         }
         else {
             BlockPos blockPos = new BlockPos(pos.getX(), Math.ceil(pos.getY()), pos.getZ());
