@@ -1,9 +1,9 @@
 package io.github.sjouwer.tputils;
 
-import net.fabricmc.fabric.api.client.command.v1.FabricClientCommandSource;
+import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource;
 import com.mojang.brigadier.CommandDispatcher;
 
-import static net.fabricmc.fabric.api.client.command.v1.ClientCommandManager.*;
+import static net.fabricmc.fabric.api.client.command.v2.ClientCommandManager.*;
 import static com.mojang.brigadier.arguments.IntegerArgumentType.*;
 
 public class Commands {
