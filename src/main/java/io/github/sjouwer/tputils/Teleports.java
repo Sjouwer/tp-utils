@@ -16,7 +16,10 @@ public class Teleports {
     private static final MinecraftClient client = MinecraftClient.getInstance();
     private static final ModConfig config = TpUtils.getConfig();
 
-    public void tpThrough() {
+    private Teleports() {
+    }
+
+    public static void tpThrough() {
         HitResult hit = Raycast.forwardFromPlayer(config.tpThroughRange());
 
         MutableText message;
@@ -35,7 +38,7 @@ public class Teleports {
         Chat.sendError(message);
     }
 
-    public void tpOnTop(HitResult hit) {
+    public static void tpOnTop(HitResult hit) {
         if (hit == null) {
             hit = Raycast.forwardFromPlayer(config.tpOnTopRange());
         }
@@ -52,7 +55,7 @@ public class Teleports {
         Chat.sendError(Text.translatable("text.tp_utils.message.noBlockFound"));
     }
 
-    public void tpForward() {
+    public static void tpForward() {
         HitResult hit = Raycast.forwardFromPlayer(config.tpForwardRange());
         double distance = client.cameraEntity.getEyePos().distanceTo(hit.getPos());
         BlockPos pos = BlockCheck.findOpenSpotBackwards(hit, distance);
@@ -73,7 +76,7 @@ public class Teleports {
         Chat.sendError(message);
     }
 
-    public void tpGround(HitResult hit) {
+    public static void tpGround(HitResult hit) {
         if (hit == null) {
             hit = Raycast.downwardFromPlayer(config.isLavaAllowed());
         }
@@ -93,7 +96,7 @@ public class Teleports {
         Chat.sendError(message);
     }
 
-    public void tpUp() {
+    public static void tpUp() {
         HitResult hit = Raycast.upwardFromPlayer();
         if (hit.getPos().y < client.world.getHeight()){
             tpOnTop(hit);
@@ -103,7 +106,7 @@ public class Teleports {
         Chat.sendError(Text.translatable("text.tp_utils.message.nothingAbove"));
     }
 
-    public void tpDown() {
+    public static void tpDown() {
         HitResult hit = Raycast.downwardFromPlayer(false);
 
         MutableText message;
@@ -124,7 +127,7 @@ public class Teleports {
         Chat.sendError(message);
     }
 
-    public void tpBack() {
+    public static void tpBack() {
         Vec3d coordinates = config.getPreviousLocation();
         if (coordinates != null) {
             tpToExactPos(coordinates);
@@ -134,7 +137,7 @@ public class Teleports {
         }
     }
 
-    public void chunkTp(int x, int y, int z) {
+    public static void chunkTp(int x, int y, int z) {
         double xPos = x * 16 + 8.0;
         double yPos = y * 16 + 8.0;
         double zPos = z * 16 + 8.0;
@@ -142,12 +145,12 @@ public class Teleports {
         tpToExactPos(new Vec3d(xPos, yPos, zPos));
     }
 
-    private void tpToBlockPos(BlockPos pos) {
+    private static void tpToBlockPos(BlockPos pos) {
         config.setPreviousLocation(client.player.getPos());
         client.player.sendCommand(config.tpMethod() + " " + pos.getX() + " " + pos.getY() + " " + pos.getZ());
     }
 
-    private void tpToExactPos(Vec3d pos) {
+    private static void tpToExactPos(Vec3d pos) {
         if (config.tpMethod().equals("tp") || config.tpMethod().equals("minecraft:tp")) {
             config.setPreviousLocation(client.player.getPos());
             client.player.sendCommand(config.tpMethod() + " " + pos.getX() + " " + pos.getY() + " " + pos.getZ());

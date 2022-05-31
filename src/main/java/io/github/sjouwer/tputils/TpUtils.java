@@ -4,10 +4,12 @@ import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.ConfigHolder;
 import me.shedaniel.autoconfig.serializer.JanksonConfigSerializer;
 import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;
 import io.github.sjouwer.tputils.config.ModConfig;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class TpUtils implements ClientModInitializer {
+    public static final Logger LOGGER = LoggerFactory.getLogger("TP Utils");
     private static ConfigHolder<ModConfig> configHolder;
 
     public static ModConfig getConfig() {
@@ -18,10 +20,7 @@ public class TpUtils implements ClientModInitializer {
     public void onInitializeClient() {
         configHolder = AutoConfig.register(ModConfig.class, JanksonConfigSerializer::new);
 
-        KeyBindings keyBindings = new KeyBindings();
-        keyBindings.setKeyBindings();
-
-        Commands commands = new Commands();
-        commands.registerCommands(ClientCommandManager.DISPATCHER);
+        KeyBindings.registerKeyBindings();
+        Commands.registerCommands();
     }
 }
