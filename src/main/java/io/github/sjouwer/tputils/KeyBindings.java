@@ -7,56 +7,58 @@ import net.minecraft.client.util.InputUtil;
 import org.lwjgl.glfw.GLFW;
 
 public class KeyBindings {
-    private final Teleports teleports = new Teleports();
     private static final String CATEGORY = "key.categories.tp_utils";
 
-    public void setKeyBindings() {
-        setKeyBindingTPThrough();
-        setKeyBindingTPOnTop();
-        setKeyBindingTPForward();
-        setKeyBindingTPBack();
+    private KeyBindings() {
     }
 
-    private void setKeyBindingTPThrough() {
+    public static void registerKeyBindings() {
+        registerTPThroughKey();
+        registerTPOnTopKey();
+        registerTPForwardKey();
+        registerTPBackKey();
+    }
+
+    private static void registerTPThroughKey() {
         KeyBinding tpThroughKey = new KeyBinding("key.tp_utils.tp_through", InputUtil.Type.MOUSE, GLFW.GLFW_MOUSE_BUTTON_5, CATEGORY);
         KeyBindingHelper.registerKeyBinding(tpThroughKey);
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             while (tpThroughKey.wasPressed()) {
-                teleports.tpThrough();
+                Teleports.tpThrough();
             }
         });
     }
 
-    private void setKeyBindingTPOnTop() {
+    private static void registerTPOnTopKey() {
         KeyBinding tpOnTopKey = new KeyBinding("key.tp_utils.tp_on_top", InputUtil.Type.MOUSE, GLFW.GLFW_MOUSE_BUTTON_4, CATEGORY);
         KeyBindingHelper.registerKeyBinding(tpOnTopKey);
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             while (tpOnTopKey.wasPressed()) {
-                teleports.tpOnTop(null);
+                Teleports.tpOnTop(null);
             }
         });
     }
 
-    private void setKeyBindingTPForward() {
+    private static void registerTPForwardKey() {
         KeyBinding tpForwardKey = new KeyBinding("key.tp_utils.tp_forward", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_UNKNOWN, CATEGORY);
         KeyBindingHelper.registerKeyBinding(tpForwardKey);
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             while (tpForwardKey.wasPressed()) {
-                teleports.tpForward();
+                Teleports.tpForward();
             }
         });
     }
 
-    private void setKeyBindingTPBack() {
+    private static void registerTPBackKey() {
         KeyBinding tpBackKey = new KeyBinding("key.tp_utils.tp_back", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_UNKNOWN, CATEGORY);
         KeyBindingHelper.registerKeyBinding(tpBackKey);
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             while (tpBackKey.wasPressed()) {
-                teleports.tpBack();
+                Teleports.tpBack();
             }
         });
     }
