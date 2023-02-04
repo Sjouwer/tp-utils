@@ -38,5 +38,6 @@
     "text.tp_utils.message.noOpenSpaceBelow": "There is no open space below the ground / current floor!",
     "text.tp_utils.message.nothingBelow": "There is nothing below you!",
     "text.tp_utils.message.nothingAbove": "There is nothing above you!",
-    "text.tp_utils.message.noPreviousLocation": "Unable to find a previous location"
+    "text.tp_utils.message.noPreviousLocation": "Unable to find a previous location",
+    "text.tp_utils.message.newCommandSet": "New teleport command set: %s"
 }

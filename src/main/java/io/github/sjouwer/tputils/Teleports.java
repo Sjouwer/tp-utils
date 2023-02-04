@@ -2,7 +2,7 @@ package io.github.sjouwer.tputils;
 
 import io.github.sjouwer.tputils.config.ModConfig;
 import io.github.sjouwer.tputils.util.BlockCheck;
-import io.github.sjouwer.tputils.util.Chat;
+import io.github.sjouwer.tputils.util.InfoProvider;
 import io.github.sjouwer.tputils.util.Raycast;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.MutableText;
@@ -20,27 +20,27 @@ public class Teleports {
     }
 
     public static void tpThrough() {
-        HitResult hit = Raycast.forwardFromPlayer(config.tpThroughRange());
+        HitResult hit = Raycast.forwardFromPlayer(config.getTpThroughRange());
 
-        MutableText message;
+        MutableText error;
         if (hit.getType() == HitResult.Type.BLOCK) {
-            BlockPos pos = BlockCheck.findOpenSpotForwards(hit, config.tpThroughRange());
+            BlockPos pos = BlockCheck.findOpenSpotForwards(hit, config.getTpThroughRange());
             if (pos != null) {
                 tpToBlockPos(pos);
                 return;
             }
-            message = Text.translatable("text.tp_utils.message.tooMuchWall");
+            error = Text.translatable("text.tp_utils.message.tooMuchWall");
         }
         else {
-            message = Text.translatable("text.tp_utils.message.noObstacleFound");
+            error = Text.translatable("text.tp_utils.message.noObstacleFound");
         }
 
-        Chat.sendError(message);
+        InfoProvider.sendError(error);
     }
 
     public static void tpOnTop(HitResult hit) {
         if (hit == null) {
-            hit = Raycast.forwardFromPlayer(config.tpOnTopRange());
+            hit = Raycast.forwardFromPlayer(config.getTpOnTopRange());
         }
 
         if (hit.getType() == HitResult.Type.BLOCK) {
@@ -52,28 +52,28 @@ public class Teleports {
             }
         }
 
-        Chat.sendError(Text.translatable("text.tp_utils.message.noBlockFound"));
+        InfoProvider.sendError(Text.translatable("text.tp_utils.message.noBlockFound"));
     }
 
     public static void tpForward() {
-        HitResult hit = Raycast.forwardFromPlayer(config.tpForwardRange());
+        HitResult hit = Raycast.forwardFromPlayer(config.getTpForwardRange());
         double distance = client.cameraEntity.getEyePos().distanceTo(hit.getPos());
         BlockPos pos = BlockCheck.findOpenSpotBackwards(hit, distance);
 
-        MutableText message;
+        MutableText error;
         if (pos != null) {
             BlockPos playerPos = new BlockPos(client.player.getPos());
             if (!pos.equals(playerPos)) {
                 tpToBlockPos(pos);
                 return;
             }
-            message = Text.translatable("text.tp_utils.message.cantMoveForward");
+            error = Text.translatable("text.tp_utils.message.cantMoveForward");
         }
         else {
-            message = Text.translatable("text.tp_utils.message.obstructed");
+            error = Text.translatable("text.tp_utils.message.obstructed");
         }
 
-        Chat.sendError(message);
+        InfoProvider.sendError(error);
     }
 
     public static void tpGround(HitResult hit) {
@@ -81,19 +81,19 @@ public class Teleports {
             hit = Raycast.downwardFromPlayer(config.isLavaAllowed());
         }
 
-        MutableText message;
+        MutableText error;
         if (hit.getPos().getY() == client.player.getPos().getY()) {
-            message = Text.translatable("text.tp_utils.message.alreadyGrounded");
+            error = Text.translatable("text.tp_utils.message.alreadyGrounded");
         }
         else if (hit.getPos().getY() == client.world.getBottomY()) {
-            message = Text.translatable("text.tp_utils.message.noGroundFound");
+            error = Text.translatable("text.tp_utils.message.noGroundFound");
         }
         else {
             tpToExactPos(hit.getPos());
             return;
         }
 
-        Chat.sendError(message);
+        InfoProvider.sendError(error);
     }
 
     public static void tpUp() {
@@ -103,13 +103,13 @@ public class Teleports {
             return;
         }
 
-        Chat.sendError(Text.translatable("text.tp_utils.message.nothingAbove"));
+        InfoProvider.sendError(Text.translatable("text.tp_utils.message.nothingAbove"));
     }
 
     public static void tpDown() {
         HitResult hit = Raycast.downwardFromPlayer(false);
 
-        MutableText message;
+        MutableText error;
         if (hit.getType() == HitResult.Type.BLOCK) {
             BlockPos hitPos = ((BlockHitResult)hit).getBlockPos();
             BlockPos bottomPos = BlockCheck.findBottomOpenSpot(hitPos);
@@ -118,13 +118,13 @@ public class Teleports {
                 tpGround(hit);
                 return;
             }
-            message = Text.translatable("text.tp_utils.message.noOpenSpaceBelow");
+            error = Text.translatable("text.tp_utils.message.noOpenSpaceBelow");
         }
         else {
-            message = Text.translatable("text.tp_utils.message.nothingBelow");
+            error = Text.translatable("text.tp_utils.message.nothingBelow");
         }
 
-        Chat.sendError(message);
+        InfoProvider.sendError(error);
     }
 
     public static void tpBack() {
@@ -133,7 +133,7 @@ public class Teleports {
             tpToExactPos(coordinates);
         }
         else {
-            Chat.sendError(Text.translatable("text.tp_utils.message.noPreviousLocation"));
+            InfoProvider.sendError(Text.translatable("text.tp_utils.message.noPreviousLocation"));
         }
     }
 
@@ -147,13 +147,13 @@ public class Teleports {
 
     private static void tpToBlockPos(BlockPos pos) {
         config.setPreviousLocation(client.player.getPos());
-        client.getNetworkHandler().sendCommand(config.tpMethod() + " " + pos.getX() + " " + pos.getY() + " " + pos.getZ());
+        client.getNetworkHandler().sendCommand(config.getTpMethod() + " " + pos.getX() + " " + pos.getY() + " " + pos.getZ());
     }
 
     private static void tpToExactPos(Vec3d pos) {
-        if (config.tpMethod().equals("tp") || config.tpMethod().equals("minecraft:tp")) {
+        if (config.getTpMethod().equals("tp") || config.getTpMethod().equals("minecraft:tp")) {
             config.setPreviousLocation(client.player.getPos());
-            client.getNetworkHandler().sendCommand(config.tpMethod() + " " + pos.getX() + " " + pos.getY() + " " + pos.getZ());
+            client.getNetworkHandler().sendCommand(config.getTpMethod() + " " + pos.getX() + " " + pos.getY() + " " + pos.getZ());
         }
         else {
             BlockPos blockPos = new BlockPos(pos.getX(), Math.ceil(pos.getY()), pos.getZ());

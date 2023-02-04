@@ -1,11 +1,13 @@
 package io.github.sjouwer.tputils.config;
 
+import io.github.sjouwer.tputils.TpUtils;
 import me.shedaniel.autoconfig.ConfigData;
 import me.shedaniel.autoconfig.annotation.Config;
 import me.shedaniel.autoconfig.annotation.ConfigEntry.Gui.Tooltip;
 import me.shedaniel.autoconfig.annotation.ConfigEntry.Gui.Excluded;
 import net.minecraft.util.math.Vec3d;
 
+@SuppressWarnings("FieldMayBeFinal")
 @Config(name = "tp_utils")
 public class ModConfig implements ConfigData {
     @Tooltip
@@ -25,22 +27,27 @@ public class ModConfig implements ConfigData {
     @Excluded
     private Vec3d previousLocation;
 
-    public String tpMethod() {
-        if (tpMethod.charAt(0) == '/') {
+    public String getTpMethod() {
+        if (tpMethod.startsWith("/")) {
             return tpMethod.substring(1);
         }
         return tpMethod;
     }
 
-    public int tpThroughRange() {
+    public void setTpMethod(String command) {
+        this.tpMethod = command;
+        TpUtils.saveConfig();
+    }
+
+    public int getTpThroughRange() {
         return tpThroughRange;
     }
 
-    public int tpOnTopRange() {
+    public int getTpOnTopRange() {
         return tpOnTopRange;
     }
 
-    public int tpForwardRange() {
+    public int getTpForwardRange() {
         return tpForwardRange;
     }
 

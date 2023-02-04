@@ -1,9 +1,12 @@
 package io.github.sjouwer.tputils;
 
+import io.github.sjouwer.tputils.util.InfoProvider;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
+import net.minecraft.text.Text;
 
 import static net.fabricmc.fabric.api.client.command.v2.ClientCommandManager.*;
 import static com.mojang.brigadier.arguments.IntegerArgumentType.*;
+import static com.mojang.brigadier.arguments.StringArgumentType.*;
 
 public class Commands {
     private Commands() {
@@ -79,6 +82,15 @@ public class Commands {
                                 .executes(ctx -> {
                                     Teleports.tpGround(null);
                                     return 1;
-                                }))));
+                                }))
+
+                        .then(literal("method")
+                                .then(argument("command", string())
+                                        .executes(ctx -> {
+                                            String command = getString(ctx, "command");
+                                            TpUtils.getConfig().setTpMethod(command);
+                                            InfoProvider.sendMessage(Text.translatable("text.tp_utils.message.newCommandSet", command));
+                                            return 1;
+                                        })))));
     }
 }
