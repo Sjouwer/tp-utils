@@ -16,7 +16,8 @@ public class Commands {
                                 .then(argument("x", integer())
                                         .then(argument("z", integer())
                                                 .executes(ctx -> {
-                                                    Teleports.chunkTp(getInteger(ctx, "x"),
+                                                    Teleports.chunkTp(
+                                                            getInteger(ctx, "x"),
                                                             6,
                                                             getInteger(ctx, "z"));
                                                     return 1;
@@ -25,13 +26,20 @@ public class Commands {
                                         .then(argument("y", integer())
                                                 .then(argument("z", integer())
                                                         .executes(ctx -> {
-                                                            Teleports.chunkTp(getInteger(ctx, "x"),
+                                                            Teleports.chunkTp(
+                                                                    getInteger(ctx, "x"),
                                                                     getInteger(ctx, "y"),
                                                                     getInteger(ctx, "z"));
                                                             return 1;
                                                         })))))
 
                         .then(literal("through")
+                                .executes(ctx -> {
+                                    Teleports.tpThrough();
+                                    return 1;
+                                }))
+
+                        .then(literal("thru")
                                 .executes(ctx -> {
                                     Teleports.tpThrough();
                                     return 1;
