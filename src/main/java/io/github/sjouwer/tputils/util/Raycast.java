@@ -32,7 +32,7 @@ public final class Raycast {
      * @return Result of the Raycast
      */
     public static HitResult downwardFromPlayer(boolean isLavaAllowed) {
-        BlockPos pos = new BlockPos(minecraft.cameraEntity.getEyePos());
+        BlockPos pos = BlockPos.ofFloored(minecraft.cameraEntity.getEyePos());
         return downwardFromPos(pos, isLavaAllowed);
     }
 
@@ -52,7 +52,7 @@ public final class Raycast {
 
         HitResult hit = minecraft.world.raycast(new RaycastContext(rayStart, rayEnd, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, minecraft.player));
 
-        boolean hitLava = BlockCheck.isLava(new BlockPos(hit.getPos()));
+        boolean hitLava = BlockCheck.isLava(BlockPos.ofFloored(hit.getPos()));
         if (hitLava && !isLavaAllowed) {
             hit = minecraft.world.raycast(new RaycastContext(rayStart, rayEnd, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.ANY, minecraft.player));
         }
@@ -65,7 +65,7 @@ public final class Raycast {
      * @return Result of the Raycast
      */
     public static HitResult upwardFromPlayer() {
-        BlockPos pos = new BlockPos(minecraft.cameraEntity.getEyePos());
+        BlockPos pos = BlockPos.ofFloored(minecraft.cameraEntity.getEyePos());
         return upwardFromPos(pos);
     }
 

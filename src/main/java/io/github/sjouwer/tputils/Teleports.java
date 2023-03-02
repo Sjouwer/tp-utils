@@ -62,7 +62,7 @@ public class Teleports {
 
         MutableText error;
         if (pos != null) {
-            BlockPos playerPos = new BlockPos(client.player.getPos());
+            BlockPos playerPos = BlockPos.ofFloored(client.player.getPos());
             if (!pos.equals(playerPos)) {
                 tpToBlockPos(pos);
                 return;
@@ -156,7 +156,7 @@ public class Teleports {
             client.getNetworkHandler().sendCommand(config.getTpMethod() + " " + pos.getX() + " " + pos.getY() + " " + pos.getZ());
         }
         else {
-            BlockPos blockPos = new BlockPos(pos.getX(), Math.ceil(pos.getY()), pos.getZ());
+            BlockPos blockPos = BlockPos.ofFloored(pos.getX(), Math.ceil(pos.getY()), pos.getZ());
             tpToBlockPos(blockPos);
         }
     }

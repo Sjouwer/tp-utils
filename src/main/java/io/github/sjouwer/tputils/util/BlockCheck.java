@@ -69,7 +69,7 @@ public final class BlockCheck {
     private static BlockPos findOpenSpotInLineWithPlayer(HitResult hit, double distance, int direction) {
         Vec3d vector = client.cameraEntity.getRotationVec(client.getTickDelta());
         for (int i = Math.max(0, direction); i < distance * 8; i++) {
-            BlockPos pos = new BlockPos(hit.getPos().add(vector.multiply(direction * 0.125 * i)));
+            BlockPos pos = BlockPos.ofFloored(hit.getPos().add(vector.multiply(direction * 0.125 * i)));
             boolean foundObstacle = canCollide(pos, config.isLavaAllowed());
             boolean isLoaded = client.world.getChunkManager().isChunkLoaded(pos.getX() / 16, pos.getZ() / 16);
 
