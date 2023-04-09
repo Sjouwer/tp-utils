@@ -3,7 +3,7 @@ package io.github.sjouwer.tputils.util;
 import io.github.sjouwer.tputils.TpUtils;
 import io.github.sjouwer.tputils.config.ModConfig;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Material;
+import net.minecraft.block.Blocks;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
@@ -40,7 +40,7 @@ public final class BlockCheck {
      */
     public static boolean isLava(BlockPos pos) {
         BlockState state = client.world.getBlockState(pos);
-        return state.getMaterial() == Material.LAVA;
+        return state.isOf(Blocks.LAVA);
     }
 
     /**
