@@ -14,7 +14,7 @@
   ],
 
   "contact": {
-    "homepage": "https://www.curseforge.com/minecraft/mc-mods/tp-utils",
+    "homepage": "https://modrinth.com/mod/tp-utils",
     "sources": "https://github.com/Sjouwer/tp-utils",
     "issues": "https://github.com/Sjouwer/tp-utils/issues"
   },
@@ -30,19 +30,6 @@
     "modmenu": [
       "io.github.sjouwer.tputils.config.ModMenuApiImpl"
     ]
-  },
-
-  "custom": {
-    "modmanager": {
-      "modrinth": "vCk0Q3ZG"
-    },
-    "modmenu": {
-      "updates": {
-        "provider": "modrinth",
-        "projectId": "vCk0Q3ZG",
-        "channel": "release"
-      }
-    }
   },
 
   "depends": {
