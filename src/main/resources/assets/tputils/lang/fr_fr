@@ -1,0 +1,43 @@
+{
+    "key.categories.tp_utils": "TP Utils",
+    "key.tp_utils.tp_through": "TP à travers",
+    "key.tp_utils.tp_on_top": "TP au-dessus",
+    "key.tp_utils.tp_forward": "TP en avant",
+    "key.tp_utils.tp_back": "TP en arrière",
+
+    "text.autoconfig.tp_utils.title": "Configuration de TP Utils",
+
+    "text.autoconfig.tp_utils.option.tpMethod": "Méthode de TP",
+    "text.autoconfig.tp_utils.option.tpMethod.@Tooltip": "Commande de TP, par exemple /tp ou /tppos",
+
+    "text.autoconfig.tp_utils.option.tpThroughRange": "Portée du TP à travers",
+    "text.autoconfig.tp_utils.option.tpThroughRange.@Tooltip": "À quelle distance le mod devrait-il détecter les blocs à travers lesquels se téléporter",
+
+    "text.autoconfig.tp_utils.option.tpOnTopRange": "Portée du TP au-dessus",
+    "text.autoconfig.tp_utils.option.tpOnTopRange.@Tooltip": "À quelle distance le mod devrait-il détecter les blocs sur lesquels se téléporter",
+
+    "text.autoconfig.tp_utils.option.tpForwardRange": "Portée du TP en avant",
+    "text.autoconfig.tp_utils.option.tpForwardRange.@Tooltip": "Le nombre de blocs que vous vous téléporterez en avant",
+
+    "text.autoconfig.tp_utils.option.allowCrawling": "Autoriser l'accroupissement",
+    "text.autoconfig.tp_utils.option.allowCrawling.@Tooltip": "Permettre au mod de vous téléporter dans un espace d'une hauteur d'un bloc",
+
+    "text.autoconfig.tp_utils.option.allowLava": "Autoriser la lave",
+    "text.autoconfig.tp_utils.option.allowLava.@Tooltip": "Permettre au mod de vous téléporter dans de la lave",
+
+    "text.autoconfig.tp_utils.option.setBedrockLimit": "Définir la limite du bedrock",
+    "text.autoconfig.tp_utils.option.setBedrockLimit.@Tooltip": "Empêche le mod de vous téléporter en dessous du bedrock / de la limite inférieure du monde",
+
+    "text.tp_utils.message.tooMuchWall": "Trop de mur. Tu ne passeras pas !",
+    "text.tp_utils.message.noObstacleFound": "Rien à traverser !",
+    "text.tp_utils.message.noBlockFound": "Aucun bloc en vue (ou trop éloigné) !",
+    "text.tp_utils.message.cantMoveForward": "Impossible de continuer à avancer !",
+    "text.tp_utils.message.obstructed": "Vous êtes bloqué/dans un bloc !",
+    "text.tp_utils.message.noGroundFound": "Il n'y a pas de sol en dessous !",
+    "text.tp_utils.message.alreadyGrounded": "Vous êtes déjà au sol !",
+    "text.tp_utils.message.noOpenSpaceBelow": "Il n'y a pas d'espace libre en dessous du sol/du plancher actuel !",
+    "text.tp_utils.message.nothingBelow": "Il n'y a rien en dessous de vous !",
+    "text.tp_utils.message.nothingAbove": "Il n'y a rien au-dessus de vous !",
+    "text.tp_utils.message.noPreviousLocation": "Impossible de trouver un emplacement précédent",
+    "text.tp_utils.message.newCommandSet": "Nouvel ensemble de commandes de téléportation : %s"
+}
