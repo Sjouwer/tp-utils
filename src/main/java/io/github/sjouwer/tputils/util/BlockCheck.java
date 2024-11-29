@@ -71,7 +71,7 @@ public final class BlockCheck {
         for (int i = Math.max(0, direction); i < distance * 8; i++) {
             BlockPos pos = BlockPos.ofFloored(hit.getPos().add(vector.multiply(direction * 0.125 * i)));
             boolean foundObstacle = canCollide(pos, config.isLavaAllowed());
-            boolean isLoaded = client.world.getChunkManager().isChunkLoaded(pos.getX() / 16, pos.getZ() / 16);
+            boolean isLoaded = client.world.getChunkManager().isChunkLoaded(pos.getX() >> 4, pos.getZ() >> 4);
 
             if (isLoaded && !foundObstacle && (!config.isBedrockLimitSet() || pos.getY() > client.world.getBottomY())) {
                 boolean isBottomBlockFree = !canCollide(pos.down(1), config.isLavaAllowed());
