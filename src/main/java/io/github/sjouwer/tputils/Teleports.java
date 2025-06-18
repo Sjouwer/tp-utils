@@ -133,7 +133,7 @@ public class Teleports {
     private static void tpToBlockPos(BlockPos pos) {
         String tpMethod = config.getTpMethod(client.isInSingleplayer());
         config.setPreviousLocation(client.player.getPos());
-        client.getNetworkHandler().sendCommand(tpMethod + " " + pos.getX() + " " + pos.getY() + " " + pos.getZ());
+        client.getNetworkHandler().sendChatCommand(tpMethod + " " + pos.getX() + " " + pos.getY() + " " + pos.getZ());
     }
 
     private static void tpToExactPos(Vec3d pos) {
@@ -141,7 +141,7 @@ public class Teleports {
 
         if (tpMethod.equals("tp") || tpMethod.equals("minecraft:tp")) {
             config.setPreviousLocation(client.player.getPos());
-            client.getNetworkHandler().sendCommand(tpMethod + " " + pos.getX() + " " + pos.getY() + " " + pos.getZ());
+            client.getNetworkHandler().sendChatCommand(tpMethod + " " + pos.getX() + " " + pos.getY() + " " + pos.getZ());
         }
         else {
             BlockPos blockPos = BlockPos.ofFloored(pos.getX(), Math.ceil(pos.getY()), pos.getZ());

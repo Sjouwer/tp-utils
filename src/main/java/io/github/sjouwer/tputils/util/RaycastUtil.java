@@ -19,7 +19,7 @@ public final class RaycastUtil {
      * @return Result of the Raycast
      */
     public static HitResult forwardFromPlayer(int range) {
-        float tickDelta = client.getRenderTickCounter().getTickDelta(true);
+        float tickDelta = client.getRenderTickCounter().getTickProgress(true);
         Entity player = client.cameraEntity;
         Vec3d vector = player.getRotationVec(tickDelta);
         Vec3d rayStart = player.getCameraPosVec(tickDelta);

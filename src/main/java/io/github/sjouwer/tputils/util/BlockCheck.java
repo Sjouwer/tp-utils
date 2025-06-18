@@ -67,7 +67,7 @@ public final class BlockCheck {
      * @param direction 1 is forwards and -1 is backwards
      */
     private static BlockPos findOpenSpotInLineWithPlayer(HitResult hit, double distance, int direction) {
-        Vec3d vector = client.cameraEntity.getRotationVec(client.getRenderTickCounter().getTickDelta(true));
+        Vec3d vector = client.cameraEntity.getRotationVec(client.getRenderTickCounter().getTickProgress(true));
         for (int i = Math.max(0, direction); i < distance * 8; i++) {
             BlockPos pos = BlockPos.ofFloored(hit.getPos().add(vector.multiply(direction * 0.125 * i)));
             boolean foundObstacle = canCollide(pos, config.isLavaAllowed());
