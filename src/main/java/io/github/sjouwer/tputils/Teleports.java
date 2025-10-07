@@ -52,7 +52,7 @@ public class Teleports {
 
     public static void tpForward() {
         HitResult hit = RaycastUtil.forwardFromPlayer(config.getTpForwardRange());
-        double distance = client.cameraEntity.getEyePos().distanceTo(hit.getPos());
+        double distance = client.getCameraEntity().getEyePos().distanceTo(hit.getPos());
         BlockPos pos = BlockCheck.findOpenSpotBackwards(hit, distance);
 
         if (pos == null) {
@@ -60,7 +60,7 @@ public class Teleports {
             return;
         }
 
-        BlockPos playerPos = BlockPos.ofFloored(client.player.getPos());
+        BlockPos playerPos = BlockPos.ofFloored(client.player.getEntityPos());
         if (pos.equals(playerPos)) {
             InfoProvider.sendError(Text.translatable("text.tputils.message.cantMoveForward"));
             return;
@@ -74,7 +74,7 @@ public class Teleports {
             hit = RaycastUtil.downwardFromPlayer(config.isLavaAllowed());
         }
 
-        if (hit.getPos().getY() == client.player.getPos().getY()) {
+        if (hit.getPos().getY() == client.player.getEntityPos().getY()) {
             InfoProvider.sendError(Text.translatable("text.tputils.message.alreadyGrounded"));
             return;
         }
@@ -132,7 +132,7 @@ public class Teleports {
 
     private static void tpToBlockPos(BlockPos pos) {
         String tpMethod = config.getTpMethod(client.isInSingleplayer());
-        config.setPreviousLocation(client.player.getPos());
+        config.setPreviousLocation(client.player.getEntityPos());
         client.getNetworkHandler().sendChatCommand(tpMethod + " " + pos.getX() + " " + pos.getY() + " " + pos.getZ());
     }
 
@@ -140,7 +140,7 @@ public class Teleports {
         String tpMethod = config.getTpMethod(client.isInSingleplayer());
 
         if (tpMethod.equals("tp") || tpMethod.equals("minecraft:tp")) {
-            config.setPreviousLocation(client.player.getPos());
+            config.setPreviousLocation(client.player.getEntityPos());
             client.getNetworkHandler().sendChatCommand(tpMethod + " " + pos.getX() + " " + pos.getY() + " " + pos.getZ());
         }
         else {

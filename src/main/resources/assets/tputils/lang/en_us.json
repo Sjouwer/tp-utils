@@ -3,7 +3,7 @@
     "modmenu.summaryTranslation.pickblockpro": "Teleport utility mod, making it much easier to get around.",
     "modmenu.descriptionTranslation.pickblockpro": "Teleport utility mod, making it much easier to get around.",
 
-    "key.categories.tputils": "TP Utils",
+    "key.category.tputils.all": "TP Utils",
     "key.tputils.tpThrough": "TP Through",
     "key.tputils.tpOnTop": "TP on Top",
     "key.tputils.tpForward": "TP Forward",

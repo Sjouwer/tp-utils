@@ -20,7 +20,7 @@ public final class RaycastUtil {
      */
     public static HitResult forwardFromPlayer(int range) {
         float tickDelta = client.getRenderTickCounter().getTickProgress(true);
-        Entity player = client.cameraEntity;
+        Entity player = client.getCameraEntity();
         Vec3d vector = player.getRotationVec(tickDelta);
         Vec3d rayStart = player.getCameraPosVec(tickDelta);
         Vec3d rayEnd = rayStart.add(vector.multiply(range));
@@ -33,7 +33,7 @@ public final class RaycastUtil {
      * @return Result of the Raycast
      */
     public static HitResult downwardFromPlayer(boolean isLavaAllowed) {
-        BlockPos pos = BlockPos.ofFloored(client.cameraEntity.getEyePos());
+        BlockPos pos = BlockPos.ofFloored(client.getCameraEntity().getEyePos());
         return downwardFromPos(pos, isLavaAllowed);
     }
 
@@ -66,7 +66,7 @@ public final class RaycastUtil {
      * @return Result of the Raycast
      */
     public static HitResult upwardFromPlayer() {
-        BlockPos pos = BlockPos.ofFloored(client.cameraEntity.getEyePos());
+        BlockPos pos = BlockPos.ofFloored(client.getCameraEntity().getEyePos());
         return upwardFromPos(pos);
     }
 
