@@ -2,9 +2,9 @@ package io.github.sjouwer.tputils;
 
 import io.github.sjouwer.tputils.util.InfoProvider;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
-import net.minecraft.text.Text;
+import net.minecraft.network.chat.Component;
 
-import static net.fabricmc.fabric.api.client.command.v2.ClientCommandManager.*;
+import static net.fabricmc.fabric.api.client.command.v2.ClientCommands.*;
 import static com.mojang.brigadier.arguments.IntegerArgumentType.*;
 import static com.mojang.brigadier.arguments.StringArgumentType.*;
 
@@ -90,7 +90,7 @@ public class Commands {
                             .executes(ctx -> {
                                 String command = getString(ctx, "command");
                                 TpUtils.getConfig().setSingleplayerTpMethod(command);
-                                InfoProvider.sendMessage(Text.translatable("text.tputils.message.newCommandSet", command));
+                                InfoProvider.sendMessage(Component.translatable("text.tputils.message.newCommandSet", command));
                                 return 1;
                             })))
 
@@ -99,7 +99,7 @@ public class Commands {
                             .executes(ctx -> {
                                 String command = getString(ctx, "command");
                                 TpUtils.getConfig().setServerTpMethod(command);
-                                InfoProvider.sendMessage(Text.translatable("text.tputils.message.newCommandSet", command));
+                                InfoProvider.sendMessage(Component.translatable("text.tputils.message.newCommandSet", command));
                                 return 1;
                             }))))));
     }
