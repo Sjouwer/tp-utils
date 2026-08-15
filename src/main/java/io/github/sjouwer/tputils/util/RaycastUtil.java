@@ -1,14 +1,14 @@
 package io.github.sjouwer.tputils.util;
 
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.entity.Entity;
-import net.minecraft.util.hit.HitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.RaycastContext;
+import net.minecraft.client.Minecraft;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.level.ClipContext;
+import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.phys.Vec3;
 
 public final class RaycastUtil {
-    private static final MinecraftClient client = MinecraftClient.getInstance();
+    private static final Minecraft client = Minecraft.getInstance();
 
     private RaycastUtil() {
     }
@@ -19,12 +19,12 @@ public final class RaycastUtil {
      * @return Result of the Raycast
      */
     public static HitResult forwardFromPlayer(int range) {
-        float tickDelta = client.getRenderTickCounter().getTickProgress(true);
+        float tickDelta = client.getDeltaTracker().getGameTimeDeltaPartialTick(true);
         Entity player = client.getCameraEntity();
-        Vec3d vector = player.getRotationVec(tickDelta);
-        Vec3d rayStart = player.getCameraPosVec(tickDelta);
-        Vec3d rayEnd = rayStart.add(vector.multiply(range));
-        return client.world.raycast(new RaycastContext(rayStart, rayEnd, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, player));
+        Vec3 vector = player.getViewVector(tickDelta);
+        Vec3 rayStart = player.getEyePosition(tickDelta);
+        Vec3 rayEnd = rayStart.add(vector.scale(range));
+        return client.level.clip(new ClipContext(rayStart, rayEnd, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, player));
     }
 
     /**
@@ -33,7 +33,7 @@ public final class RaycastUtil {
      * @return Result of the Raycast
      */
     public static HitResult downwardFromPlayer(boolean isLavaAllowed) {
-        BlockPos pos = BlockPos.ofFloored(client.getCameraEntity().getEyePos());
+        BlockPos pos = BlockPos.containing(client.getCameraEntity().getEyePosition());
         return downwardFromPos(pos, isLavaAllowed);
     }
 
@@ -45,17 +45,17 @@ public final class RaycastUtil {
      */
     public static HitResult downwardFromPos(BlockPos pos, boolean isLavaAllowed) {
         double x = pos.getX() + 0.5;
-        double y = Math.min(pos.getY(), client.world.getHeight() + 1);
+        double y = Math.min(pos.getY(), client.level.getHeight() + 1);
         double z = pos.getZ() + 0.5;
 
-        Vec3d rayStart = new Vec3d(x, y, z);
-        Vec3d rayEnd = new Vec3d(x, client.world.getBottomY(), z);
+        Vec3 rayStart = new Vec3(x, y, z);
+        Vec3 rayEnd = new Vec3(x, client.level.getMinY(), z);
 
-        HitResult hit = client.world.raycast(new RaycastContext(rayStart, rayEnd, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, client.player));
+        HitResult hit = client.level.clip(new ClipContext(rayStart, rayEnd, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, client.player));
 
-        boolean hitLava = BlockCheck.isLava(BlockPos.ofFloored(hit.getPos()));
+        boolean hitLava = BlockCheck.isLava(BlockPos.containing(hit.getLocation()));
         if (hitLava && !isLavaAllowed) {
-            hit = client.world.raycast(new RaycastContext(rayStart, rayEnd, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.ANY, client.player));
+            hit = client.level.clip(new ClipContext(rayStart, rayEnd, ClipContext.Block.COLLIDER, ClipContext.Fluid.ANY, client.player));
         }
 
         return hit;
@@ -66,7 +66,7 @@ public final class RaycastUtil {
      * @return Result of the Raycast
      */
     public static HitResult upwardFromPlayer() {
-        BlockPos pos = BlockPos.ofFloored(client.getCameraEntity().getEyePos());
+        BlockPos pos = BlockPos.containing(client.getCameraEntity().getEyePosition());
         return upwardFromPos(pos);
     }
 
@@ -77,12 +77,12 @@ public final class RaycastUtil {
      */
     public static HitResult upwardFromPos(BlockPos pos) {
         double x = pos.getX() + 0.5;
-        double y = Math.max(pos.getY(), client.world.getBottomY() - 1);
+        double y = Math.max(pos.getY(), client.level.getMinY() - 1);
         double z = pos.getZ() + 0.5;
 
-        Vec3d rayStart = new Vec3d(x, y, z);
-        Vec3d rayEnd = new Vec3d(x, client.world.getHeight(), z);
+        Vec3 rayStart = new Vec3(x, y, z);
+        Vec3 rayEnd = new Vec3(x, client.level.getHeight(), z);
 
-        return client.world.raycast(new RaycastContext(rayStart, rayEnd, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, client.player));
+        return client.level.clip(new ClipContext(rayStart, rayEnd, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, client.player));
     }
 }

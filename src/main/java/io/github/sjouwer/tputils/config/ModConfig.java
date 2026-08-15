@@ -5,7 +5,7 @@ import me.shedaniel.autoconfig.ConfigData;
 import me.shedaniel.autoconfig.annotation.Config;
 import me.shedaniel.autoconfig.annotation.ConfigEntry.Gui.Tooltip;
 import me.shedaniel.autoconfig.annotation.ConfigEntry.Gui.Excluded;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.phys.Vec3;
 
 @SuppressWarnings("FieldMayBeFinal")
 @Config(name = TpUtils.NAMESPACE)
@@ -27,7 +27,7 @@ public class ModConfig implements ConfigData {
     @Tooltip
     private boolean setBedrockLimit = true;
     @Excluded
-    private Vec3d previousLocation;
+    private Vec3 previousLocation;
 
     public String getTpMethod(boolean isInSingleplayer) {
         String tpMethod = isInSingleplayer ? singleplayerTpMethod : serverTpMethod;
@@ -72,11 +72,11 @@ public class ModConfig implements ConfigData {
         return setBedrockLimit;
     }
 
-    public Vec3d getPreviousLocation() {
+    public Vec3 getPreviousLocation() {
         return previousLocation;
     }
 
-    public void setPreviousLocation(Vec3d coordinates) {
+    public void setPreviousLocation(Vec3 coordinates) {
         previousLocation = coordinates;
     }
 }

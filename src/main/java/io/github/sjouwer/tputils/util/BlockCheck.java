@@ -2,16 +2,16 @@ package io.github.sjouwer.tputils.util;
 
 import io.github.sjouwer.tputils.TpUtils;
 import io.github.sjouwer.tputils.config.ModConfig;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.util.hit.HitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.shape.VoxelShape;
+import net.minecraft.client.Minecraft;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 public final class BlockCheck {
-    private static final MinecraftClient client = MinecraftClient.getInstance();
+    private static final Minecraft client = Minecraft.getInstance();
     private static final ModConfig config = TpUtils.getConfig();
 
     private BlockCheck() {
@@ -27,8 +27,8 @@ public final class BlockCheck {
         if (!isLavaAllowed && isLava(pos)) {
             return true;
         }
-        BlockState state = client.world.getBlockState(pos);
-        VoxelShape collider = state.getCollisionShape(client.world, pos);
+        BlockState state = client.level.getBlockState(pos);
+        VoxelShape collider = state.getCollisionShape(client.level, pos);
 
         return !collider.isEmpty();
     }
@@ -39,8 +39,8 @@ public final class BlockCheck {
      * @return True if it's lava
      */
     public static boolean isLava(BlockPos pos) {
-        BlockState state = client.world.getBlockState(pos);
-        return state.isOf(Blocks.LAVA);
+        BlockState state = client.level.getBlockState(pos);
+        return state.is(Blocks.LAVA);
     }
 
     /**
@@ -67,18 +67,18 @@ public final class BlockCheck {
      * @param direction 1 is forwards and -1 is backwards
      */
     private static BlockPos findOpenSpotInLineWithPlayer(HitResult hit, double distance, int direction) {
-        Vec3d vector = client.getCameraEntity().getRotationVec(client.getRenderTickCounter().getTickProgress(true));
+        Vec3 vector = client.getCameraEntity().getViewVector(client.getDeltaTracker().getGameTimeDeltaPartialTick(true));
         for (int i = Math.max(0, direction); i < distance * 8; i++) {
-            BlockPos pos = BlockPos.ofFloored(hit.getPos().add(vector.multiply(direction * 0.125 * i)));
+            BlockPos pos = BlockPos.containing(hit.getLocation().add(vector.scale(direction * 0.125 * i)));
             boolean foundObstacle = canCollide(pos, config.isLavaAllowed());
-            boolean isLoaded = client.world.getChunkManager().isChunkLoaded(pos.getX() >> 4, pos.getZ() >> 4);
+            boolean isLoaded = client.level.getChunkSource().hasChunk(pos.getX() >> 4, pos.getZ() >> 4);
 
-            if (isLoaded && !foundObstacle && (!config.isBedrockLimitSet() || pos.getY() > client.world.getBottomY())) {
-                boolean isBottomBlockFree = !canCollide(pos.down(1), config.isLavaAllowed());
-                boolean isTopBlockFree = !canCollide(pos.up(1), config.isLavaAllowed());
+            if (isLoaded && !foundObstacle && (!config.isBedrockLimitSet() || pos.getY() > client.level.getMinY())) {
+                boolean isBottomBlockFree = !canCollide(pos.below(1), config.isLavaAllowed());
+                boolean isTopBlockFree = !canCollide(pos.above(1), config.isLavaAllowed());
 
                 if (isBottomBlockFree) {
-                    return pos.down(1);
+                    return pos.below(1);
                 }
                 else if (isTopBlockFree || config.isCrawlingAllowed()) {
                     return pos;
@@ -110,12 +110,12 @@ public final class BlockCheck {
      * @param direction 1 is upwards and -1 is downwards
      */
     private static BlockPos findVerticalOpenSpot(BlockPos pos, int direction) {
-        for (int j = 1; j < client.world.getHeight() + 1; j++) {
-            boolean isBottomBlockFree = !BlockCheck.canCollide(pos.up(j * direction), config.isLavaAllowed());
-            boolean isTopBlockFree = !BlockCheck.canCollide(pos.up((j + 1) * direction), config.isLavaAllowed());
+        for (int j = 1; j < client.level.getHeight() + 1; j++) {
+            boolean isBottomBlockFree = !BlockCheck.canCollide(pos.above(j * direction), config.isLavaAllowed());
+            boolean isTopBlockFree = !BlockCheck.canCollide(pos.above((j + 1) * direction), config.isLavaAllowed());
 
             if (isBottomBlockFree && (config.isCrawlingAllowed() || isTopBlockFree)) {
-                return pos.up(j * direction);
+                return pos.above(j * direction);
             }
         }
         return null;
