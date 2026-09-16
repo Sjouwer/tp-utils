@@ -26,7 +26,7 @@ dependencies {
     implementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
     //Fabric api
-    implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+    implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
 
     //Mod Menu
     implementation "com.terraformersmc:modmenu:${project.modmenu_version}"
@@ -62,23 +62,5 @@ jar {
 
     from("LICENSE") {
         rename { "${it}_${inputs.properties.archivesName}"}
-    }
-}
-
-// configure the maven publication
-publishing {
-    publications {
-        create("mavenJava", MavenPublication) {
-            artifactId = project.archives_base_name
-            from components.java
-        }
-    }
-
-    // See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
-    repositories {
-        // Add repositories to publish to here.
-        // Notice: This block does NOT have the same function as the block in the top level.
-        // The repositories here will be used for publishing your artifact, not for
-        // retrieving dependencies.
     }
 }
