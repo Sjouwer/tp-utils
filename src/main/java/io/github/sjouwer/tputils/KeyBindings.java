@@ -1,14 +1,14 @@
 package io.github.sjouwer.tputils;
 
+import com.mojang.blaze3d.platform.InputConstants;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
-import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
-import net.minecraft.client.option.KeyBinding;
-import net.minecraft.client.util.InputUtil;
-import net.minecraft.util.Identifier;
+import net.fabricmc.fabric.api.client.keymapping.v1.KeyMappingHelper;
+import net.minecraft.client.KeyMapping;
+import net.minecraft.resources.Identifier;
 import org.lwjgl.glfw.GLFW;
 
 public class KeyBindings {
-    private static final KeyBinding.Category CATEGORY = KeyBinding.Category.create(Identifier.of(TpUtils.NAMESPACE, "all"));
+    private static final KeyMapping.Category CATEGORY = KeyMapping.Category.register(Identifier.fromNamespaceAndPath(TpUtils.NAMESPACE, "all"));
     private static final String BASE_KEY = "key." + TpUtils.NAMESPACE;
 
     private KeyBindings() {
@@ -22,44 +22,44 @@ public class KeyBindings {
     }
 
     private static void registerTPThroughKey() {
-        KeyBinding tpThroughKey = new KeyBinding(BASE_KEY + ".tpThrough", InputUtil.Type.MOUSE, GLFW.GLFW_MOUSE_BUTTON_5, CATEGORY);
-        KeyBindingHelper.registerKeyBinding(tpThroughKey);
+        KeyMapping tpThroughKey = new KeyMapping(BASE_KEY + ".tpThrough", InputConstants.Type.MOUSE, GLFW.GLFW_MOUSE_BUTTON_5, CATEGORY);
+        KeyMappingHelper.registerKeyMapping(tpThroughKey);
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            while (tpThroughKey.wasPressed()) {
+            while (tpThroughKey.consumeClick()) {
                 Teleports.tpThrough();
             }
         });
     }
 
     private static void registerTPOnTopKey() {
-        KeyBinding tpOnTopKey = new KeyBinding(BASE_KEY + ".tpOnTop", InputUtil.Type.MOUSE, GLFW.GLFW_MOUSE_BUTTON_4, CATEGORY);
-        KeyBindingHelper.registerKeyBinding(tpOnTopKey);
+        KeyMapping tpOnTopKey = new KeyMapping(BASE_KEY + ".tpOnTop", InputConstants.Type.MOUSE, GLFW.GLFW_MOUSE_BUTTON_4, CATEGORY);
+        KeyMappingHelper.registerKeyMapping(tpOnTopKey);
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            while (tpOnTopKey.wasPressed()) {
+            while (tpOnTopKey.consumeClick()) {
                 Teleports.tpOnTop(null);
             }
         });
     }
 
     private static void registerTPForwardKey() {
-        KeyBinding tpForwardKey = new KeyBinding(BASE_KEY + ".tpForward", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_UNKNOWN, CATEGORY);
-        KeyBindingHelper.registerKeyBinding(tpForwardKey);
+        KeyMapping tpForwardKey = new KeyMapping(BASE_KEY + ".tpForward", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_UNKNOWN, CATEGORY);
+        KeyMappingHelper.registerKeyMapping(tpForwardKey);
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            while (tpForwardKey.wasPressed()) {
+            while (tpForwardKey.consumeClick()) {
                 Teleports.tpForward();
             }
         });
     }
 
     private static void registerTPBackKey() {
-        KeyBinding tpBackKey = new KeyBinding(BASE_KEY + ".tpBack", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_UNKNOWN, CATEGORY);
-        KeyBindingHelper.registerKeyBinding(tpBackKey);
+        KeyMapping tpBackKey = new KeyMapping(BASE_KEY + ".tpBack", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_UNKNOWN, CATEGORY);
+        KeyMappingHelper.registerKeyMapping(tpBackKey);
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            while (tpBackKey.wasPressed()) {
+            while (tpBackKey.consumeClick()) {
                 Teleports.tpBack();
             }
         });
